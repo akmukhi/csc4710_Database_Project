@@ -300,12 +300,54 @@ public class userDAO
 			    			"('jeannette@gmail.com', 'Jeannette ', 'Stone','jeannette1234', '2001-04-24', '0981', 'snoop street', 'kojik', 'HW', '87654','1000', '0'),"+
 			    			"('root', 'default', 'default','pass1234', '0000-00-00', '0000', 'Default', 'Default', '0', '00000','1000','1000000000');")
 			    			};
+	String[] INITIAL2 = {"drop table if exists Addresses;" +
+		"CREATE TABLE if not exists Addresses( " +
+		    "address_street_num VARCHAR(4), " +
+		    "address_street VARCHAR(30), " +
+		    "address_city VARCHAR(20), " +
+		    "address_state VARCHAR(2), " +
+		    "address_zip_code VARCHAR(5), " +
+		    "FOREIGN KEY(username) REFERENCES User(username) " +
+		    "address_id VARCHAR(5) NOT NULL auto_increment, " +
+		    "PRIMARY KEY(address_id) " +
+		" )" +
+		"drop table if exists NFT_Ledger; " +
+		"CREATE TABLE if not exists NFT_Ledger( " +
+		    "NFT_name VARCHAR(50) NOT NULL, " +
+		    "price DECIMAL(13,2) DEFAULT 0, " +
+		    "image FILENAME NOT NULL, " +
+		    "description VARCHAR(100), " +
+		    "FOREIGN KEY(creator) REFERENCES USER(username) " +
+		    "NFTid VARCHAR(5) NOT NULL auto_increment, " +
+		    "PRIMARY KEY (NFTid) " +   
+		") " +
+		"drop table if exists Transaction_History; " +
+		"CREATE TABLE if not exists Transaction_History( " +
+			"FOREIGN KEY(NFTid) REFERENCES NFT_Ledger(NFT_name), " +
+		    "FOREIGN KEY (creator_id) REFERENCES NFT_Ledger(creator), " +
+		    "customer_id VARCHAR(60), " +
+		    "transaction_date DATETIME, " +
+		    "transactionId VARCHAR(5) NOT NULL auto_increment, " +
+		    "PRIMARY KEY (transactionId) " +
+		") " +
+		"drop table if exists Transfer_History; " +
+		"CREATE TABLE if not exists Transfer_History( " +
+			"FOREIGN KEY(NFTid) REFERENCES NFT_Ledger(NFT_name), " +
+		    "FOREIGN KEY (current_owner) REFERENCES NFT_Ledger(creator), " +
+		    "previous_owner VARCHAR(60), " +
+		    "transfer_date DATETIME, " +
+		    "transferId VARCHAR(5) NOT NULL auto_increment, " +
+		    "PRIMARY KEY (transferId) " +
+		") " )};
+
         
         //for loop to put these in database
         for (int i = 0; i < INITIAL.length; i++)
         	statement.execute(INITIAL[i]);
         for (int i = 0; i < TUPLES.length; i++)	
         	statement.execute(TUPLES[i]);
+	    for (int i = 0; i < INITIAL2.length; i++)	
+        	statement.execute(INITAL2[i]);
         disconnect();
     }
     
