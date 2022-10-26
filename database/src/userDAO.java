@@ -307,38 +307,21 @@ public class userDAO
 		    "address_city VARCHAR(20), " +
 		    "address_state VARCHAR(2), " +
 		    "address_zip_code VARCHAR(5), " +
-		    "FOREIGN KEY(username) REFERENCES User(username) " +
+		    "FOREIGN KEY(username) REFERENCES User(email) " +
 		    "address_id VARCHAR(5) NOT NULL auto_increment, " +
-		    "PRIMARY KEY(address_id) " +
-		" )" +
-		"drop table if exists NFT_Ledger; " +
-		"CREATE TABLE if not exists NFT_Ledger( " +
-		    "NFT_name VARCHAR(50) NOT NULL, " +
-		    "price DECIMAL(13,2) DEFAULT 0, " +
-		    "image FILENAME NOT NULL, " +
-		    "description VARCHAR(100), " +
-		    "FOREIGN KEY(creator) REFERENCES USER(username) " +
-		    "NFTid VARCHAR(5) NOT NULL auto_increment, " +
-		    "PRIMARY KEY (NFTid) " +   
-		") " +
-		"drop table if exists Transaction_History; " +
-		"CREATE TABLE if not exists Transaction_History( " +
-			"FOREIGN KEY(NFTid) REFERENCES NFT_Ledger(NFT_name), " +
-		    "FOREIGN KEY (creator_id) REFERENCES NFT_Ledger(creator), " +
-		    "customer_id VARCHAR(60), " +
-		    "transaction_date DATETIME, " +
-		    "transactionId VARCHAR(5) NOT NULL auto_increment, " +
-		    "PRIMARY KEY (transactionId) " +
-		") " +
-		"drop table if exists Transfer_History; " +
-		"CREATE TABLE if not exists Transfer_History( " +
-			"FOREIGN KEY(NFTid) REFERENCES NFT_Ledger(NFT_name), " +
-		    "FOREIGN KEY (current_owner) REFERENCES NFT_Ledger(creator), " +
-		    "previous_owner VARCHAR(60), " +
-		    "transfer_date DATETIME, " +
-		    "transferId VARCHAR(5) NOT NULL auto_increment, " +
-		    "PRIMARY KEY (transferId) " +
-		") " )};
+		    "PRIMARY KEY(address_id) "+"); ")}; 
+	String[] TUPLES2 = {("Insert into Addresses(address_street_num, address_street, address_city, address_state, address_zip_code, username)" +
+			     "values('1234','whatever street','detroit','MI','48202','susie@gmail.com')," +
+			     "values('1000', 'hi street', 'mama', 'MO', '12345','don@gmail.com')," +
+			     "values('1234', 'ivan street', 'tata','CO','12561','margarita@gmail.com')," +
+			     "values('3214','marko street', 'brat', 'DU', '54321','jo@gmail.com')," +
+			     "values('4500', 'frey street', 'sestra', 'MI', '48202','wallace@gmail.com')," +
+			     "values('1245', 'm8s street', 'baka', 'IL', '48000','amelia@gmail.com')," +
+			     "values('2468', 'yolos street', 'ides', 'CM', '24680','sophie@gmail.com')," +
+			     "values('4680', 'egypt street', 'lolas', 'DT', '13579','angelo@gmail.com')," +
+			     "values('1234',','detroit','MI','48202','rudy@gmail.com')," +
+			     "values( '0981', 'snoop street', 'kojik', 'HW', '87654','jeannette@gmail.com')," +
+			      "values('0000', 'Default', 'Default', '0', '00000','root');") };
 
         
         //for loop to put these in database
@@ -348,6 +331,8 @@ public class userDAO
         	statement.execute(TUPLES[i]);
 	    for (int i = 0; i < INITIAL2.length; i++)	
         	statement.execute(INITAL2[i]);
+	     for (int i = 0; i < TUPLES2.length; i++)	
+        	statement.execute(TUPLES2[i]);
         disconnect();
     }
     
