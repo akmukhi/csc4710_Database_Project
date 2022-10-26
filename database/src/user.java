@@ -1,5 +1,6 @@
 public class user 
 {
+		protected String user_name;
 		protected String password;
 	 	protected String email;
 	    protected String firstName;
@@ -22,15 +23,16 @@ public class user
 	        this.email = email;
 	    }
 	    
-	    public user(String email,String firstName, String lastName, String password,String birthday, String adress_street_num, String adress_street, String adress_city, String adress_state,String adress_zip_code, int cash_bal,  int PPS_bal) 
+	    public user(String email, String user_name, String firstName, String lastName, String password,String birthday, String adrress_street_num, String adrress_street, String adrress_city, String adrress_state,String adrress_zip_code, int cash_bal,  int PPS_bal) 
 	    {
-	    	this(firstName,lastName,password,birthday, adress_street_num,  adress_street,  adress_city,  adress_state,  adress_zip_code,cash_bal,PPS_bal);
+	    	this(user_name, firstName,lastName,password,birthday, adrress_street_num,  adrress_street,  adrress_city,  adrress_state,  adrress_zip_code,cash_bal,PPS_bal);
 	    	this.email = email;
 	    }
 	 
 	
-	    public user(String firstName, String lastName, String password,String birthday, String adress_street_num, String adress_street, String adress_city, String adress_state,String adress_zip_code, int cash_bal,  int PPS_bal) 
+	    public user(String user_name, String firstName, String lastName, String password,String birthday, String adress_street_num, String adress_street, String adress_city, String adress_state,String adress_zip_code, int cash_bal,  int PPS_bal) 
 	    {
+		this.user_name = user_name;
 	    	this.firstName = firstName;
 	    	this.lastName = lastName;
 	    	this.password = password;
@@ -51,7 +53,12 @@ public class user
 	    public void setEmail(String email) {
 	        this.email = email;
 	    }
-	    
+	    public String getUserName() {
+	        return user_name;
+	    }
+	    public void setUserName(String firstName) {
+	        this.user_name = user_name;
+	    }
 	    public String getFirstName() {
 	        return firstName;
 	    }
