@@ -45,14 +45,14 @@ public class userDAO
             } catch (ClassNotFoundException e) {
                 throw new SQLException(e);
             }
-            connect = (Connection) DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/testdb?allowPublicKeyRetrieval=true&useSSL=false&user=john&password=john1234");
+            connect = (Connection) DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/testdb?allowPublicKeyRetrieval=true&useSSL=false&user=john&password=pass1234");
             System.out.println(connect);
         }
     }
     
     public boolean database_login(String email, String password) throws SQLException{
     	try {
-    		connect_func("root","pass1234");
+    		connect_func("john","pass1234");
     		String sql = "select * from user where email = ?";
     		preparedStatement = connect.prepareStatement(sql);
     		preparedStatement.setString(1, email);
