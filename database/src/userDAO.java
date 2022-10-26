@@ -319,7 +319,7 @@ public class userDAO
 			     "values('1245', 'm8s street', 'baka', 'IL', '48000','amelia@gmail.com')," +
 			     "values('2468', 'yolos street', 'ides', 'CM', '24680','sophie@gmail.com')," +
 			     "values('4680', 'egypt street', 'lolas', 'DT', '13579','angelo@gmail.com')," +
-			     "values('1234',','detroit','MI','48202','rudy@gmail.com')," +
+			     "values( '1234', 'sign street', 'samo ne tu','MH', '09876','rudy@gmail.com')," +
 			     "values( '0981', 'snoop street', 'kojik', 'HW', '87654','jeannette@gmail.com')," +
 			      "values('0000', 'Default', 'Default', '0', '00000','root');") };
 
