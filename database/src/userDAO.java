@@ -151,7 +151,7 @@ public class userDAO
     }
      
     public boolean update(user users) throws SQLException {
-        String sql = "update User set user_name=?,firstName=?, lastName =?,password = ?,birthday=?,adress_street_num =?, adress_street=?,adress_city=?,adress_state=?,adress_zip_code=?, cash_bal=?, PPS_bal =? where email = ?";
+        String sql = "update User set user_name=?,firstName=?, lastName =?,password = ?,birthday=?,address_street_num =?, address_street=?,address_city=?,address_state=?,address_zip_code=?, cash_bal=?, PPS_bal =? where email = ?";
         connect_func();
         
         preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
@@ -293,7 +293,7 @@ public class userDAO
 						    "userid int NOT NULL AUTO_INCREMENT, " +
 						    "PRIMARY KEY (userid) "+"); "
         					};
-        String[] TUPLES = {("insert into User(email, user_name, firstName, lastName, password, birthday, adress_street_num, adress_street, adress_city, adress_state, adress_zip_code, cash_bal, PPS_bal)"+
+        String[] TUPLES = {("insert into User(email, user_name, firstName, lastName, password, birthday, address_street_num, address_street, address_city, address_state, address_zip_code, cash_bal, PPS_bal)"+
         			"values ('susie@gmail.com', 'SusieG', 'Susie ', 'Guzman', 'susie1234', '2000-06-27', '1234', 'whatever street', 'detroit', 'MI', '48202','1000', '0'),"+
 			    		 	"('don@gmail.com', 'DonC', 'Don', 'Cummings','don123', '1969-03-20', '1000', 'hi street', 'mama', 'MO', '12345','1000', '0'),"+
 			    	 	 	"('margarita@gmail.com', 'MargaritaL','Margarita', 'Lawson','margarita1234', '1980-02-02', '1234', 'ivan street', 'tata','CO','12561','1000', '0'),"+
