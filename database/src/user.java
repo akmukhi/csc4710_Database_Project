@@ -56,7 +56,7 @@ public class user
 	    public String getUserName() {
 	        return user_name;
 	    }
-	    public void setUserName(String firstName) {
+	    public void setUserName(String user_name) {
 	        this.user_name = user_name;
 	    }
 	    public String getFirstName() {
