@@ -291,7 +291,7 @@ public class userDAO
 						    "cash_bal DECIMAL(13,2) DEFAULT 0, " +
 						    "PPS_bal DECIMAL(13,2) DEFAULT 0, " +
 						    "userid int NOT NULL AUTO_INCREMENT, " +
-						    "PRIMARY KEY (userid) "+"); ")
+						    "PRIMARY KEY (userid) "+"); "
         					};
         String[] TUPLES = {("insert into User(email, user_name, firstName, lastName, password, birthday, adress_street_num, adress_street, adress_city, adress_state, adress_zip_code, cash_bal, PPS_bal)"+
         			"values ('susie@gmail.com', 'SusieG', 'Susie ', 'Guzman', 'susie1234', '2000-06-27', '1234', 'whatever street', 'detroit', 'MI', '48202','1000', '0'),"+
@@ -317,7 +317,7 @@ public class userDAO
     "userid int NOT NULL,  " +
     "CONSTRAINT fk_userid FOREIGN KEY (userid) REFERENCES User(userid),  " +
     "address_id int NOT NULL AUTO_INCREMENT,  " +
-    "PRIMARY KEY(address_id) "+"); ")}; 
+    "PRIMARY KEY(address_id) "+"); "}; 
 	    
 	String[] TUPLES2 = {("Insert into Addresses(address_street_num, address_street, address_city, address_state, address_zip_code, username)" +
 			     "values('1234','whatever street','detroit','MI','48202','SusieG',1)," +
@@ -341,7 +341,7 @@ public class userDAO
     "userid int NOT NULL, " +
     "CONSTRAINT fk_NFTuserid FOREIGN KEY (userid) REFERENCES User(userid), " +
     "NFTid int NOT NULL auto_increment, " +
-   " PRIMARY KEY (NFTid) " + "); ")};
+   " PRIMARY KEY (NFTid) " + "); "};
 	    
 	    String[] TUPLES3 = {"Insert into NFT_Ledger(NFT_name, price, FILENAME, description, userid)" +
 "values('CAT', 100.00, 'CATNFT', 'Cat NFT', 1), " +
@@ -354,7 +354,7 @@ public class userDAO
 "('BIRD', 150.00, 'BIRDNFT', 'BIRD NFT', 8), " +
 "('HORSE', 150.00, 'HORSENFT', 'HORSE NFT', 9), " +
 "('WHALE', 150.00, 'WHALENFT', 'WHALE NFT', 10), " +
-"('DEFAULT', 150.00, 'DEFAULTNFT', 'DEFAULT NFT', 11); ")};
+"('DEFAULT', 150.00, 'DEFAULTNFT', 'DEFAULT NFT', 11); "};
 	    
 	    String[] INITIAL4 = {"drop table if exists Transaction_History;",
 ("CREATE TABLE if not exists Transaction_History( " +
@@ -376,7 +376,7 @@ public class userDAO
 "(8,'RudyS', 'JeanetteS', '2022-01-20')," +
 "(9,'WallaceM', 'DonC', '2022-09-21')," +
 "(10,'SusieG', 'MargaritaL', '2022-10-21')," +
-"(11,'DonC', 'MargaritaL', '2022-07-01');" )};
+"(11,'DonC', 'MargaritaL', '2022-07-01');" };
 	    
 	    String[] INITIAL5 = {"drop table if exists Transfer_History;",
     "CREATE TABLE if not exists Transfer_History(, " + 
@@ -386,7 +386,7 @@ public class userDAO
     "previous_owner VARCHAR(60), " + 
     "transfer_date DATETIME, " + 
     "transferId int NOT NULL auto_increment, " + 
-    "PRIMARY KEY (transferId) "+"); ")};
+    "PRIMARY KEY (transferId) "+"); "};
 	    
 	    String[] TUPLES5 = {"(Insert Into Transfer_History(NFTid, current_owner, previous_owner, transfer_date)" +
 "values(1,'SusieG', 'JeanetteS', '2022-10-26')," +
@@ -399,7 +399,7 @@ public class userDAO
 "(8,'MargaritaL', 'JeanetteS', '2022-01-13')," +
 "(9,'RudyS', 'DonC', '2022-01-04')," +
 "(10,'SusieG', 'JeanetteS', '2022-03-05')," +
-"(11,'DonC', 'JeanetteS', '2022-06-17');" )};
+"(11,'DonC', 'JeanetteS', '2022-06-17');" };
 
         
         //for loop to put these in database
@@ -408,19 +408,19 @@ for (int i = 0; i < INITIAL.length; i++)
 for (int i = 0; i < TUPLES.length; i++)	
         	statement.execute(TUPLES[i]);
 for (int i = 0; i < INITIAL2.length; i++)	
-        	statement.execute(INITAL2[i]);
+        	statement.execute(INITIAL2[i]);
 for (int i = 0; i < TUPLES2.length; i++)	
         	statement.execute(TUPLES2[i]);
 for (int i = 0; i < INITIAL3.length; i++)	
-        	statement.execute(INITAL3[i]);
+        	statement.execute(INITIAL3[i]);
 for (int i = 0; i < TUPLES3.length; i++)	
         	statement.execute(TUPLES3[i]);
 for (int i = 0; i < INITIAL4.length; i++)	
-        	statement.execute(INITAL4[i]);
+        	statement.execute(INITIAL4[i]);
 for (int i = 0; i < TUPLES4.length; i++)	
         	statement.execute(TUPLES4[i]);
 for (int i = 0; i < INITIAL5.length; i++)	
-        	statement.execute(INITAL5[i]);
+        	statement.execute(INITIAL5[i]);
 for (int i = 0; i < TUPLES5.length; i++)	
         	statement.execute(TUPLES5[i]);
         disconnect();
