@@ -13,9 +13,10 @@
             <caption><h2>List of People</h2></caption>
             <tr>
 				<th>Email</th>
+		<th>Username</th>
                 <th>First name</th>
                 <th>Last name</th>
-                <th>Adress</th>
+                <th>Address</th>
                 <th>Password</th>
                 <th>Birthday</th>
                 <th>cash_bal($)</th>
@@ -25,9 +26,10 @@
             <c:forEach var="users" items="${listUser}">
                 <tr style="text-align:center">
                     <td><c:out value="${users.email}" /></td>
+		    <td><c:out value="${users.user_name}" /></td>
                     <td><c:out value="${users.firstName}" /></td>
                     <td><c:out value="${users.lastName}" /></td>
-                    <td><c:out value= "${users.adress_street_num} ${users.adress_street} ${users.adress_city} ${users.adress_state} ${users.adress_zip_code}" /></td>
+                    <td><c:out value= "${users.adress_street_num} ${users.address_street} ${users.address_city} ${users.address_state} ${users.address_zip_code}" /></td>
                     <td><c:out value="${users.password}" /></td>
                     <td><c:out value="${users.birthday}" /></td>
                     <td><c:out value="${users.cash_bal}"/></td>
