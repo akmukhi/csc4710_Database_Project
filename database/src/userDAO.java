@@ -127,7 +127,7 @@ public class userDAO
 			preparedStatement.setString(5, users.getPassword());
 			preparedStatement.setString(6, users.getBirthday());
 			preparedStatement.setString(7, users.getAddress_street_num());		
-			preparedStatement.setString(8, users.getAdrerss_street());		
+			preparedStatement.setString(8, users.getAddress_street());		
 			preparedStatement.setString(9, users.getAddress_city());		
 			preparedStatement.setString(10, users.getAddress_state());		
 			preparedStatement.setString(11, users.getAddress_zip_code());		
