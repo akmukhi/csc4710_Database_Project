@@ -291,9 +291,8 @@ public class userDAO
 						    "cash_bal DECIMAL(13,2) DEFAULT 0, " +
 						    "PPS_bal DECIMAL(13,2) DEFAULT 0, " +
 						    "userid int NOT NULL AUTO_INCREMENT, " +
-						    "PRIMARY KEY (userid) "+"); ")
-        					};
-        String[] TUPLES = {("insert into User(email, user_name, firstName, lastName, password, birthday, adress_street_num, adress_street, adress_city, adress_state, adress_zip_code, cash_bal, PPS_bal)"+
+						    "PRIMARY KEY (userid)); "};
+        String[] TUPLES = {"insert into User(email, user_name, firstName, lastName, password, birthday, adress_street_num, adress_street, adress_city, adress_state, adress_zip_code, cash_bal, PPS_bal)"+
         			"values ('susie@gmail.com', 'SusieG', 'Susie ', 'Guzman', 'susie1234', '2000-06-27', '1234', 'whatever street', 'detroit', 'MI', '48202','1000', '0'),"+
 			    		 	"('don@gmail.com', 'DonC', 'Don', 'Cummings','don123', '1969-03-20', '1000', 'hi street', 'mama', 'MO', '12345','1000', '0'),"+
 			    	 	 	"('margarita@gmail.com', 'MargaritaL','Margarita', 'Lawson','margarita1234', '1980-02-02', '1234', 'ivan street', 'tata','CO','12561','1000', '0'),"+
@@ -304,8 +303,7 @@ public class userDAO
 			    			"('angelo@gmail.com', 'AngeloF','Angelo', 'Francis','angelo1234', '2021-06-14', '4680', 'egypt street', 'lolas', 'DT', '13579','1000', '0'),"+
 			    			"('rudy@gmail.com', 'RudyS','Rudy', 'Smith','rudy1234', '1706-06-05', '1234', 'sign street', 'samo ne tu','MH', '09876','1000', '0'),"+
 			    			"('jeannette@gmail.com', 'JeannetteS','Jeannette ', 'Stone','jeannette1234', '2001-04-24', '0981', 'snoop street', 'kojik', 'HW', '87654','1000', '0'),"+
-			    			"('root', 'defaultuser','default', 'default','pass1234', '0000-00-00', '0000', 'Default', 'Default', '0', '00000','1000','1000000000');")
-			    			};
+			    			"('root', 'defaultuser','default', 'default','pass1234', '0000-00-00', '0000', 'Default', 'Default', '0', '00000','1000','1000000000');"};
 	String[] INITIAL2 = {"use testdb;",
     "CREATE TABLE if not exists Addresses( ",
     "address_street_num VARCHAR(4), " +
@@ -317,9 +315,9 @@ public class userDAO
     "userid int NOT NULL,  " +
     "CONSTRAINT fk_userid FOREIGN KEY (userid) REFERENCES User(userid),  " +
     "address_id int NOT NULL AUTO_INCREMENT,  " +
-    "PRIMARY KEY(address_id) "+"); ")}; 
+    "PRIMARY KEY(address_id));"}; 
 	    
-	String[] TUPLES2 = {("Insert into Addresses(address_street_num, address_street, address_city, address_state, address_zip_code, username)" +
+	String[] TUPLES2 = {"Insert into Addresses(address_street_num, address_street, address_city, address_state, address_zip_code, username)" +
 			     "values('1234','whatever street','detroit','MI','48202','SusieG',1)," +
 			     "('1000', 'hi street', 'mama', 'MO', '12345','DonC',2)," +
 			     "('1234', 'ivan street', 'tata','CO','12561','MargaritaL',3)," +
@@ -330,7 +328,7 @@ public class userDAO
 			     "('4680', 'egypt street', 'lolas', 'DT', '13579','AngeloF',8)," +
 			     "( '1234', 'sign street', 'samo ne tu','MH', '09876','RudyS',9)," +
 			     "( '0981', 'snoop street', 'kojik', 'HW', '87654','JeannetteS',10)," +
-			      "('0000', 'Default', 'Default', '0', '00000','defaultuser', 11);") };
+			      "('0000', 'Default', 'Default', '0', '00000','defaultuser', 11);"};
 	    
 	    String[] INITIAL3 = {"drop table if exists NFT_Ledger;",
 "CREATE TABLE if not exists NFT_Ledger(" +
@@ -341,7 +339,7 @@ public class userDAO
     "userid int NOT NULL, " +
     "CONSTRAINT fk_NFTuserid FOREIGN KEY (userid) REFERENCES User(userid), " +
     "NFTid int NOT NULL auto_increment, " +
-   " PRIMARY KEY (NFTid) " + "); ")};
+   "PRIMARY KEY (NFTid));"};
 	    
 	    String[] TUPLES3 = {"Insert into NFT_Ledger(NFT_name, price, FILENAME, description, userid)" +
 "values('CAT', 100.00, 'CATNFT', 'Cat NFT', 1), " +
@@ -354,17 +352,17 @@ public class userDAO
 "('BIRD', 150.00, 'BIRDNFT', 'BIRD NFT', 8), " +
 "('HORSE', 150.00, 'HORSENFT', 'HORSE NFT', 9), " +
 "('WHALE', 150.00, 'WHALENFT', 'WHALE NFT', 10), " +
-"('DEFAULT', 150.00, 'DEFAULTNFT', 'DEFAULT NFT', 11); ")};
+"('DEFAULT', 150.00, 'DEFAULTNFT', 'DEFAULT NFT', 11);"};
 	    
 	    String[] INITIAL4 = {"drop table if exists Transaction_History;",
-("CREATE TABLE if not exists Transaction_History( " +
+"CREATE TABLE if not exists Transaction_History( " +
 	"NFTid int NOT NULL," +
     "CONSTRAINT fk_TH_NFTId FOREIGN KEY(NFTid) REFERENCES NFT_Ledger(NFTid)," +
     "creator_id VARCHAR(80)," +
     "customer_id VARCHAR(80)," +
     "transaction_date DATETIME," +
     "transactionId int NOT NULL auto_increment," +
-    "PRIMARY KEY (transactionId) "+"); ")};
+    "PRIMARY KEY (transactionId));"};
 	    String[] TUPLES4 = {"Insert Into Transaction_History(NFTid, creator_id, customer_id, transaction_date)" +
 "values (1,'SusieG', 'JeanetteS', '2022-10-26')," +
 "(2,'JeanetteS', 'SusieG', '2022-10-24')," +
@@ -376,19 +374,19 @@ public class userDAO
 "(8,'RudyS', 'JeanetteS', '2022-01-20')," +
 "(9,'WallaceM', 'DonC', '2022-09-21')," +
 "(10,'SusieG', 'MargaritaL', '2022-10-21')," +
-"(11,'DonC', 'MargaritaL', '2022-07-01');" )};
+"(11,'DonC', 'MargaritaL', '2022-07-01');" };
 	    
 	    String[] INITIAL5 = {"drop table if exists Transfer_History;",
-    "CREATE TABLE if not exists Transfer_History(, " + 
+    "CREATE TABLE if not exists Transfer_History( " + 
     "NFTid int NOT NULL, " + 
     "CONSTRAINT fk_TrH_NFTId FOREIGN KEY(NFTid) REFERENCES NFT_Ledger(NFTid), " + 
     "current_owner VARCHAR(60), " + 
     "previous_owner VARCHAR(60), " + 
     "transfer_date DATETIME, " + 
     "transferId int NOT NULL auto_increment, " + 
-    "PRIMARY KEY (transferId) "+"); ")};
+    "PRIMARY KEY (transferId));"};
 	    
-	    String[] TUPLES5 = {"(Insert Into Transfer_History(NFTid, current_owner, previous_owner, transfer_date)" +
+	    String[] TUPLES5 = {"Insert Into Transfer_History(NFTid, current_owner, previous_owner, transfer_date)" +
 "values(1,'SusieG', 'JeanetteS', '2022-10-26')," +
 "(2,'AmeliaP', 'DonC', '2022-09-15')," +
 "(3,'MargaritaL', 'RudyS', '2022-09-23')," +
@@ -399,7 +397,7 @@ public class userDAO
 "(8,'MargaritaL', 'JeanetteS', '2022-01-13')," +
 "(9,'RudyS', 'DonC', '2022-01-04')," +
 "(10,'SusieG', 'JeanetteS', '2022-03-05')," +
-"(11,'DonC', 'JeanetteS', '2022-06-17');" )};
+"(11,'DonC', 'JeanetteS', '2022-06-17');"};
 
         
         //for loop to put these in database
