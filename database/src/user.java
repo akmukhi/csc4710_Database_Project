@@ -1,14 +1,15 @@
 public class user 
 {
+		protected String user_name;
 		protected String password;
 	 	protected String email;
 	    protected String firstName;
 	    protected String lastName;
-	    protected String adress_street_num;
-	    protected String adress_street;
-	    protected String adress_city;
-	    protected String adress_state;
-	    protected String adress_zip_code;
+	    protected String address_street_num;
+	    protected String address_street;
+	    protected String address_city;
+	    protected String address_state;
+	    protected String address_zip_code;
 	    protected String birthday;
 	    protected int cash_bal;
 	    protected int PPS_bal;
@@ -22,24 +23,25 @@ public class user
 	        this.email = email;
 	    }
 	    
-	    public user(String email,String firstName, String lastName, String password,String birthday, String adress_street_num, String adress_street, String adress_city, String adress_state,String adress_zip_code, int cash_bal,  int PPS_bal) 
+	    public user(String email, String user_name, String firstName, String lastName, String password,String birthday, String address_street_num, String address_street, String address_city, String address_state,String address_zip_code, int cash_bal,  int PPS_bal) 
 	    {
-	    	this(firstName,lastName,password,birthday, adress_street_num,  adress_street,  adress_city,  adress_state,  adress_zip_code,cash_bal,PPS_bal);
+	    	this(user_name, firstName,lastName,password,birthday, address_street_num,  address_street,  address_city,  address_state,  address_zip_code,cash_bal,PPS_bal);
 	    	this.email = email;
 	    }
 	 
 	
-	    public user(String firstName, String lastName, String password,String birthday, String adress_street_num, String adress_street, String adress_city, String adress_state,String adress_zip_code, int cash_bal,  int PPS_bal) 
+	    public user(String user_name, String firstName, String lastName, String password,String birthday, String address_street_num, String address_street, String address_city, String address_state,String address_zip_code, int cash_bal,  int PPS_bal) 
 	    {
+		this.user_name = user_name;
 	    	this.firstName = firstName;
 	    	this.lastName = lastName;
 	    	this.password = password;
 	        this.birthday = birthday;
-	        this.adress_street_num = adress_street_num;
-	        this.adress_street = adress_street;
-	        this.adress_city= adress_city;
-	        this.adress_state = adress_state;
-	        this.adress_zip_code = adress_zip_code;
+	        this.address_street_num = address_street_num;
+	        this.address_street = address_street;
+	        this.address_city= address_city;
+	        this.address_state = address_state;
+	        this.address_zip_code = address_zip_code;
 	        this.cash_bal = cash_bal;
 	        this.PPS_bal = PPS_bal;
 	    }
@@ -51,7 +53,12 @@ public class user
 	    public void setEmail(String email) {
 	        this.email = email;
 	    }
-	    
+	    public String getUserName() {
+	        return user_name;
+	    }
+	    public void setUserName(String firstName) {
+	        this.user_name = user_name;
+	    }
 	    public String getFirstName() {
 	        return firstName;
 	    }
@@ -80,35 +87,35 @@ public class user
 	    	this.birthday = birthday;
 	    }
 	    
-	    public String getAdress_street_num() {
-	        return adress_street_num;
+	    public String getAddress_street_num() {
+	        return address_street_num;
 	    }
-	    public void setAdress_street_num(String adress_street_num) {
-	        this.adress_street_num = adress_street_num;
+	    public void setAddress_street_num(String address_street_num) {
+	        this.address_street_num = address_street_num;
 	    }
-	    public String getAdress_street() {
-	        return adress_street;
+	    public String getAddress_street() {
+	        return address_street;
 	    }
-	    public void setAdress_street(String adress_street) {
-	        this.adress_street = adress_street;
+	    public void setAddress_street(String address_street) {
+	        this.address_street = address_street;
 	    }
-	    public String getAdress_city() {
-	        return adress_city;
+	    public String getAddress_city() {
+	        return address_city;
 	    }
-	    public void setAdress_city(String adress_city) {
-	        this.adress_city = adress_city;
+	    public void setAddress_city(String address_city) {
+	        this.address_city = address_city;
 	    }
-	    public String getAdress_state() {
-	        return adress_state;
+	    public String getAddress_state() {
+	        return address_state;
 	    }
-	    public void setAdress_state(String adress_state) {
-	        this.adress_state = adress_state;
+	    public void setAddress_state(String address_state) {
+	        this.address_state = address_state;
 	    }
-	    public String getAdress_zip_code() {
-	        return adress_zip_code;
+	    public String getAddress_zip_code() {
+	        return address_zip_code;
 	    }
-	    public void setAdress_zip_code(String adress_zip_code) {
-	        this.adress_zip_code = adress_zip_code;
+	    public void setAddress_zip_code(String address_zip_code) {
+	        this.address_zip_code = address_zip_code;
 	    }
 	    
 	    public int getCash_bal() {
