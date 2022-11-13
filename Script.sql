@@ -1,11 +1,15 @@
+
+
+create database testdb;
 use testdb;
+
 drop table if exists User;
 CREATE TABLE if not exists User(
     email VARCHAR(50) NOT NULL,
     user_name VARCHAR(50) NOT NULL,
-    firstName VARCHAR(10) NOT NULL,
-    lastName VARCHAR(10) NOT NULL,
-    password VARCHAR(20) NOT NULL,
+    firstName VARCHAR(50) NOT NULL,
+    lastName VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL,
     birthday DATE NOT NULL,
     address_street_num VARCHAR(4),
     address_street VARCHAR(30),
@@ -16,7 +20,7 @@ CREATE TABLE if not exists User(
     PPS_bal DECIMAL(13,2) DEFAULT 0,
     userid int NOT NULL AUTO_INCREMENT, 
     PRIMARY KEY (userid)
-  )
+  );
     
 drop table if exists Addresses;
  CREATE TABLE if not exists Addresses(
@@ -30,19 +34,19 @@ drop table if exists Addresses;
     CONSTRAINT fk_userid FOREIGN KEY (userid) REFERENCES User(userid),
     address_id int NOT NULL AUTO_INCREMENT,
     PRIMARY KEY(address_id)
-)
+);
 
 drop table if exists NFT_Ledger;
 CREATE TABLE if not exists NFT_Ledger(
-    NFT_name VARCHAR(150) NOT NULL,
-    price DECIMAL(13,2) DEFAULT 0,
-    FILENAME varchar(100) NOT NULL,
-    description VARCHAR(100),
-    userid int NOT NULL,
-    CONSTRAINT fk_NFTuserid FOREIGN KEY (userid) REFERENCES User(userid),
+    nftName VARCHAR(150) NOT NULL,
+    listingPrice DECIMAL(13,2) DEFAULT 0,
+    listingTime VARCHAR(100),
+    uploadNFT varchar(500) NOT NULL,
+    nftDescription VARCHAR(100),
+    nftOwner VARCHAR(50) NOT NULL,
     NFTid int NOT NULL auto_increment,
     PRIMARY KEY (NFTid)
-    )
+    );
 
     
 drop table if exists Transaction_History;
@@ -54,7 +58,7 @@ CREATE TABLE if not exists Transaction_History(
     transaction_date DATETIME,
     transactionId int NOT NULL auto_increment,
     PRIMARY KEY (transactionId)
-    )
+    );
     
 drop table if exists Transfer_History;
 CREATE TABLE if not exists Transfer_History(
@@ -66,4 +70,3 @@ CREATE TABLE if not exists Transfer_History(
     transferId int NOT NULL auto_increment,
     PRIMARY KEY (transferId)
 )
-
