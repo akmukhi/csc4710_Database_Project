@@ -5,21 +5,22 @@ public class NFT
     protected String description;
     protected String date;
     protected String link;
-    protected String author;
+    protected int currentOwner;
+    protected int price; 
 
-    public NFT()
-    {
-
-    }
+    public NFT(){}
 
     public NFT(int NFTid)
     {
         this.NFTid = NFTid;
     }
 
-    public NFT(int NFTid, String name, String description, String date, String link)
+    public NFT(int NFTid, String name, String description, String date, String link, int currentOwner)
     {
-        this.(name, description, date, link);
+        this.name = name;
+        this.description = description;
+        this.link = link;
+        this.currentOwner = currentOwner;
         this.NFTid = NFTid;
     }
 
@@ -29,6 +30,16 @@ public class NFT
         this.description = description;
         this.date = date;
         this.link = link;
+    }
+
+    public NFT(int NFTid, String name, String description, String link, int currentOwner, int price)
+    {
+        this.NFTid = NFTid;
+        this.name = name;
+        this.description = description;
+        this.link = link;
+        this.currentOwner = currentOwner;
+        this.price = price;
     }
 
     public int getNFTid()
@@ -71,5 +82,20 @@ public class NFT
     {
         this.link = link;
     }
-    
+    public int getCurrentOwner()
+    {
+        return currentOwner;
+    }
+    public void setCurrentOwner(int currentOwner)
+    {
+        this.currentOwner = currentOwner;
+    }
+    public int getPrice()
+    {
+        return price;
+    }
+    public void setPrice(int price)
+    {
+        this.price = price;
+    }
 }

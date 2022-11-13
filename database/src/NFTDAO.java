@@ -1,6 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.Thread.State;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -31,6 +32,22 @@ public class NFTDAO
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
     public NFTDAO(){};
+
+    protected void connect_func(String username, String password) throws SQLException
+    {
+        if(connect == null || connect.isClosed())
+        {
+            try
+            {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+            } catch(ClassNotFoundException e)
+            {
+                throw new SQLException(e);
+            }
+            connect = {Connection} DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/userdb?" + "userSSL=false&user=" + username + "&password=" + password);
+            System.out.println(connect);
+        }
+    }
 
     protected void connect_func() throws SQLException {
     	//uses default connection to the database
@@ -206,7 +223,104 @@ public class NFTDAO
         disconnect();
     }
 
+    public List<NFT>listNFT(String search) throws SQLException
+    {
+        List<NFT> selectedNFT = new ArrayList<NFT>();
+        String sql = "SELECT * FROM market NATURAL JOIN NFT WHERE name '"+search+"'";
+        connect_func();
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        while(resultSet.next())
+        {
+            int NFTid = resultSet.getInt("NFTid");
+            String name = resultSet.getString("name");
+            String description = resultSet.getString("description");
+            String link = resultSet.getString("link");
+            int currentOwner = resultSet.getInt("currentOwner");
+            int price = resultSet.getInt("price");
+            NFT existingNFT = new NFT(NFTid, name, description, link, currentOwner, price);
+            selectedNFT.add(existingNFT);
+        }
+        resultSet.close();
+        disconnect();
+        return selectedNFT;
+    }
 
+    public boolean transferSeller(int buyer, int seller) throws SQLException
+    {
+        String sql = "UPDATE NFT set currentOwner= ? WHERE owner =?";
+        connect_func();
+        preparedStatement =(PreparedStatement) connect.prepareStatement(sql);
+        preparedStatement.setInt(1, buyer);
+        preparedStatement.setInt(2, seller);
+        boolean rowUpdated = preparedStatement.executeUpdate()>0;
+        preparedStatement.close();
+        return rowUpdated;
+    }
+    public boolean transferBuyer(int buyer, String name) throws SQLException
+    {
+        String sql = "UPDATE NFT set owner = ? WHERE name = ?";
+        connect_func();
+        preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
+        preparedStatement.setInt(1, buyer);
+        preparedStatement.setString(2, name);
+        boolean rowUpdated = preparedStatement.executeUpdate()>0;
+        return rowUpdated;
+    }
+    public NFT getNFTByName(String name) throws SQLException
+    {
+        NFT nftByName = null;
+        String sql = "SELECT * FROM NFT where name = '"+name+"'";
+        connect_func();
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        if(resultSet.next())
+        {
+            int NFTid = resultSet.getInt("NFTid");
+            String description = resultSet.getString("description");
+            String link = resultSet.getString("link");
+            int currentOwner = resultSet.getInt("currentOwner");
+            nftByName = new NFT(NFTid, name, description, link, currentOwner);
+        }
+        resultSet.close();
+        statement.close();
+        return nftByName;
+    }
+    public NFT currentNFTOwner(int seller, int buyer) throws SQLException
+    {
+        NFT currentNFT = null;
+        String sql = "SELECT * FROM NFT WHERE currentOwner = '"+buyer+"'";
+        connect_func();
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        if(resultSet.next())
+        {
+            int NFTid = resultSet.getInt("NFTid");
+            String name = resultSet.getString("name");
+            String description = resultSet.getString("description");
+            String link = resultSet.getString("link");
+            currentNFT = new NFT(NFTid, name, description, link, buyer);
+        }
+        resultSet.close();
+        statement.close();
+        return currentNFT;
+    }
+    public boolean searchNFT(String link) throws SQLException
+    {
+        boolean checks = false;
+        String sql = "SELECT * FROM NFT WHERE link = ?";
+        connect_func();
+        preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
+        preparedStatement.setString(1, link);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        System.out.println(checks);
+        if(resultSet.next())
+        {
+            checks = true;
+        }
+        System.out.println(checks);
+        return checks;
 
-    
+    }
+
 }

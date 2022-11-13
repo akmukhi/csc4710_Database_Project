@@ -25,6 +25,9 @@ public class ControlServlet extends HttpServlet {
 	    private userDAO userDAO = new userDAO();
 	    private String currentUser;
 	    private HttpSession session=null;
+		private NFTDAO nftd = new NFTDAO();
+		private listDAO l = new listDAO();
+
 	    
 	    public ControlServlet()
 	    {
@@ -35,6 +38,9 @@ public class ControlServlet extends HttpServlet {
 	    {
 	    	userDAO = new userDAO();
 	    	currentUser= "";
+			nftd = new NFTDAO();
+			l = new listDAO();
+
 	    }
 	    
 	    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -55,6 +61,8 @@ public class ControlServlet extends HttpServlet {
         		break;
         	case "/initialize":
         		userDAO.init();
+				nftd.init();
+				l.init();
         		System.out.println("Database successfully initialized!");
         		rootPage(request,response,"");
         		break;
@@ -68,6 +76,14 @@ public class ControlServlet extends HttpServlet {
                  System.out.println("The action is: list");
                  listUser(request, response);           	
                  break;
+			case "/buy":
+				buy(request, response);
+				break;
+			case "/cancel":
+				cancel(request, response);
+				break;
+			case "/activity"
+				activity(request, response);
 	    	}
 	    }
 	    catch(Exception ex) {
@@ -87,7 +103,7 @@ public class ControlServlet extends HttpServlet {
 	     
 	        System.out.println("listPeople finished: 111111111111111111111111111111111111");
 	    }
-	    	        
+	    	    
 	    private void rootPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException{
 	    	System.out.println("root view");
 			request.setAttribute("listUser", userDAO.listAllUsers());
@@ -156,6 +172,62 @@ public class ControlServlet extends HttpServlet {
 	    	currentUser = "";
         		response.sendRedirect("login.jsp");
         	}
+
+		private void listNFT(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException
+		{
+			System.out.println("listNFT started: 000000");
+			List<NFT> listNFT = nftd.listAllNFT();
+			request.setAttribute("listNFT", listNFT);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("NFT.jsp");
+			dispatcher.forward(request, response);
+			System.out.println("listNFT finished: 111111");
+		}
+
+		private void searchNFT(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException
+		{
+			System.out.println("searchNFT started: 0000");
+			List<NFT> listNFT = nftd.listAllNFT();
+			request.setAttribute("listNFT", listNFT);
+			List<list>list = l.listTransactions();
+			request.setAttribute("list", list);
+			User user = userDAO.getUser(currentUser);
+			request.setAttribute("currentUser", user);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("list.jsp");
+			dispatcher.forward(request, response);
+			System.out.println("searchNFT finished: 1111");
+		}
+
+		private void listTrade(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, IOException
+		{
+			System.out.println("listTrade started: 00000");
+			List<list> list = l.listTransactions();
+			request.setAttribute("listTrade", list);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("list.jsp");
+			dispatcher.forward(request, response);
+			System.out.println("listTrade finished: 11111111");
+		}
+
+		private void transfer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException
+		{
+			String transfertoEmail = request.getParameter("email");
+			String name = request.getParameter("name");
+			System.out.println("transfer started: 0000000");
+
+			User holder = userDAO.getUser(currentUser);
+			User receiver = userDAO.getUser(transfertoEmail);
+
+			NFT selected_NFT = NFTDAO.getNFTid(name);
+
+			if(holder.userId == selected_NFT.owner)
+			{
+				NFTDAO.update(reciever.getUserID(), name);
+				
+			}
+			request.setAttribute("noNFTStr", "You don't own any NFT's");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/activity");
+			dispatcher.forward(request, response);
+			System.out.println("transfer finished: 11111111111");
+		}
 	
 	    
 

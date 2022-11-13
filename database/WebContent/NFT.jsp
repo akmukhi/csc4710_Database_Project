@@ -4,7 +4,7 @@
     <!DOCTYPE html>
     <html>
         <head>
-            <meta charset="UTF-8">
+            <meta charset="ISO-8859-1">
             <title>NFT trading plateform</title>
         </head>
         <a href="login.jsp" target ="_self" > logout</a><br><br>
@@ -19,6 +19,7 @@
                     <th>Description</th>
                     <th>Date</th>
                     <th>Link</th>
+                    <th>Current Owner</th>
                 </tr>
                 <c:forEach var="NFTs" items="${getNFT}">
                     <tr style="text-align:center">
@@ -27,6 +28,7 @@
                         <td>"${NFT.Description}"</td>
                         <td>"${NFT.Date}"</td>
                         <td>"${NFT.Link}"</td>
+                        <td>"${NFT.currentOwner}"</td>
                     </tr>
                 </c:forEach>
             </table>
