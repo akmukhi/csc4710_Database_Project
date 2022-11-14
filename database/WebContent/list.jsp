@@ -18,5 +18,17 @@
                     <input type = "submit" value="List"/>
                 </form>
             </div>
+            <c:forEach var ="history" items="${NFTHistory}">
+                <c:if test ="${history.user == buyer.user}">
+                    <c:forEach var = "NFT" items="${list}">
+                        <c:if test= "${history.NFTid == NFT.NFTid && history.transaction == 'has been sold'}">
+                            <h3><c:out value= "${NFT.description}"></c:out></h3>
+                            <img src = <c:out value= "${NFT.link}"></c:out>>
+                            <p><c:out value="${NFT.description}"></c:out></p>
+                        </c:if>
+                    </c:forEach>
+
+                </c:if>
+            </c:forEach>
         </body>
     </html>
