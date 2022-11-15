@@ -1,86 +1,114 @@
-public class NFT{
-	protected int NFTid;
-	protected String name;
-	protected String description;
-	protected String nft; 
-	protected int currentOwner;
-	protected int price;
-	public NFT() {}
-	public NFT(int currentOwner)
-	{
-		this.currentOwner = currentOwner;
+import java.sql.Timestamp;
+
+public class nft 
+{
+		protected int NFTid;
+		protected String nftName;
+		protected String nftDescription;
+		protected int listingPrice;
+		protected Timestamp listingTime;
+		protected String uploadNFT;
+		protected String nftOwner;
+		protected String url;
+	 
+	    //constructors
+	    public nft() {
+	    	
+	    }
+	    
+	    
+	    public nft(String nftName)
+	    {
+	    	this.nftName = nftName;
+	    }
+	    
+	    public nft(String nftName, String nftOwner)
+	    {
+	    	this.nftName = nftName;
+	    	this.nftOwner = nftOwner;
+	    }
+	    
+	    
+	    public nft(int NFTid, String nftName, String nftDescription,int listingPrice ,String uploadNFT , Timestamp listingTime, String nftOwner, String url)
+	    {
+	    	this(nftDescription,listingPrice,uploadNFT,listingTime,nftOwner, url);   	
+	    	this.nftName = nftName;
+	    }
+	    
+	    public nft(String nftName, String nftDescription,int listingPrice ,String uploadNFT , Timestamp listingTime, String nftOwner, String url)
+	    {
+	    	this(nftDescription,listingPrice,uploadNFT,listingTime,nftOwner, url);   	
+	    	this.nftName = nftName;
+	    }
+	    
+	    public nft(String nftDescription, int listingPrice,  String uploadNFT, Timestamp listingTime, String nftOwner, String url)
+	    {
+	    	this.nftName = nftName;
+	    	this.nftDescription = nftDescription;
+	    	this.listingPrice = listingPrice;
+	    	this.uploadNFT = uploadNFT;
+	    	this.listingTime = listingTime;
+	    	this.nftOwner = nftOwner;
+	    	this.url = url;
+	    	
+	    }
+
+	    public int getNFTid()
+		{
+			return NFTid;
+		}
+	    public String getnftName() {
+	    	return nftName;
+	    }
+	    public String getNftDescription() {
+	    	return nftDescription;
+	    }
+	    public int getListingPrice() {
+	    	return listingPrice;
+	    }
+	    public String getUploadNFT() {
+	    	return uploadNFT;
+	    }
+	    public String getURL() {
+	    	return url;
+	    }
+	    public Timestamp getListingTime() {
+	    	return listingTime;
+	    }
+	    public String getnftOwner() {
+	    	return nftOwner;
+	    }
+	    public void setNFTid(int NFTid)
+		{
+			this.NFTid = NFTid;
+		}
+	    public void setnftOwner(String nftOwner) {
+	    	this.nftOwner = nftOwner;
+	    }
+	    public void setnftName(String nftName)
+	    {
+	    	this.nftName = nftName;
+	    }
+	    public void setDescription(String nftDescription) {
+	    	this.nftDescription = nftDescription;
+	    }
+	    public void setListingPrice(int listingPrice) {
+	    	this.listingPrice = listingPrice;
+	    }
+	    public void setUploadNFT(String uploadNFT) {
+	    	this.uploadNFT = uploadNFT;
+	    }
+	    public void setListingTime(Timestamp listingTime) {
+	    	long time = listingTime.getTime();
+	        listingTime = new Timestamp(time);
+	    }
+	    public void setURL (String url)
+	    {
+	    	this.url = url;
+	    }
+
+
+
+	   //getter and setter methods
+	   
 	}
-	public NFT(String name, String description, String nft, int currentOwner)
-	{
-		this.name = name;
-		this.description = description;
-		this.nft = nft;
-		this.currentOwner = currentOwner;
-	}
-	public NFT(int NFTid, String name, String description, String nft, int currentOwner)
-	{
-		this.NFTid = NFTid;
-		this.description = description;
-		this.name = name;
-		this.nft = nft;
-		this.currentOwner = currentOwner;
-	}
-	public NFT(int NFTid, String name, String description, String nft, int currentOwner, int price)
-	{
-		this.NFTid = NFTid;
-		this.name = name;
-		this.description = description;
-		this.nft = nft;
-		this.currentOwner = currentOwner;
-		this.price = price;
-	}
-	public int getNFTid()
-	{
-		return NFTid;
-	}
-	public void setNFTid(int NFTid)
-	{
-		this.NFTid = NFTid;
-	}
-	public String getName()
-	{
-		return name;
-	}
-	public void setName(String name)
-	{
-		this.name = name;
-	}
-	public String getDescription()
-	{
-		return description;
-	}
-	public void setDescription(String description)
-	{
-		this.description = description;
-	}
-	public String getNft()
-	{
-		return nft;
-	}
-	public void setNft(String nft)
-	{
-		this.nft = nft;
-	}
-	public int getCurrentOwner()
-	{
-		return currentOwner;
-	}
-	public void setCurrentOwner(int currentOwner)
-	{
-		this.currentOwner = currentOwner;
-	}
-	public int getPrice()
-	{
-		return price;
-	}
-	public void setPrice(int price)
-	{
-		this.price = price;
-	}
-	
-}

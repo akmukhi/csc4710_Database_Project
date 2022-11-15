@@ -2,6 +2,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.Thread.State;
+import java.net.URL;
+import java.security.Timestamp;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.sql.Time;
 import java.sql.PreparedStatement;
 //import java.sql.Connection;
 //import java.sql.PreparedStatement;
@@ -75,22 +78,24 @@ public class NFTDAO
 		}
 	}
 	
-	public List<NFT> listSelectedNFT(String search) throws SQLException
+	public List<nft> listSelectedNFT(String search) throws SQLException
 	{
-		List<NFT> selectedNFT = new ArrayList<NFT>();
-		String sql = "SELECT * FROM transaction NATURAL JOIN NFT WHERE name = '"+search+"'";
+		List<nft> selectedNFT = new ArrayList<nft>();
+		String sql = "SELECT * FROM transaction NATURAL JOIN NFT WHERE nftName = '"+search+"'";
 		connect_func();
 		statement = (Statement) connect.createStatement();
 		ResultSet resultSet = statement.executeQuery(sql);
 		while(resultSet.next())
 		{
 			int NFTid = resultSet.getInt("NFTid");
-			String name = resultSet.getString("name");
-			String description = resultSet.getString("description");
-			String nft = resultSet.getString("nft");
-			int currentOwner = resultSet.getInt("currentOwner");
-			int price = resultSet.getInt("price");
-			NFT pickedNFT = new NFT(NFTid, name, description, nft, currentOwner, price);
+			String nftName = resultSet.getString("nftName");
+			String nftDescription = resultSet.getString("nftDescription");
+			int listingPrice = resultSet.getInt("listingPrice");
+			String uploadNFT = resultSet.getString("uploadNFT");
+			Timestamp listingTime = resultSet.getTimestamp("listingTime");
+			String nftOwner = resultSet.getString("nftOwner");
+			String url = resultSet.getString("url");
+			nft pickedNFT = new nft(NFTid, nftName, nftDescription,listingPrice, uploadNFT,listingTime, nftOwner, url);
 			selectedNFT.add(pickedNFT);
 		}
 		resultSet.close();
@@ -98,7 +103,7 @@ public class NFTDAO
 		return selectedNFT;
 	}
 	
-	public List<NFT> listOwnerNFT(int currentOwner) throws SQLException
+	public List<nft> listOwnerNFT(int currentOwner) throws SQLException
 	{
 		List<NFT> ownedNft = new ArrayList<NFT>();
 		String sql = "SELECT * FROM NFT WHERE owner = '"+currentOwner+"'";
@@ -144,9 +149,9 @@ public class NFTDAO
 		return rowUpdated;
 	}
 	
-	public NFT getNFT(int NFTid) throws SQLException
+	public nft getNFT(int NFTid) throws SQLException
 	{
-		NFT selectedNFT = null;
+		nft selectedNFT = null;
 		String sql = "SELECT * FROM NFT where NFTid = ?";
 		connect_func();
 		preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
@@ -154,18 +159,22 @@ public class NFTDAO
 		ResultSet resultSet = preparedStatement.executeQuery();
 		if(resultSet.next())
 		{
-			String name = resultSet.getString("name");
-			String description = resultSet.getString("description");
-			String nft = resultSet.getString("nft");
-			int currentOwner = resultSet.getInt("currentOwner");
-			selectedNFT = new NFT(NFTid, name, description, nft, currentOwner);
+			int NFTid = resultSet.getInt("NFTid");
+			String nftName = resultSet.getString("nftName");
+			String nftDescription = resultSet.getString("nftDescription");
+			int listingPrice = resultSet.getInt("listingPrice");
+			String uploadNFT = resultSet.getString("uploadNFT");
+			Timestamp listingTime = resultSet.getTimestamp("listingTime")
+			String nftOwner = resultSet.getString("nftOwner");
+			String url = resultSet.getString("url");
+			selectedNFT = new nft(NFTid, nftName, nftDescription, listingPrice, uploadNFT, listingTime, nftOwner, url);
 		}
 		resultSet.close();
 		preparedStatement.close();
 		return selectedNFT;
 	}
 	
-	public NFT getNFTOwner(int seller, int buyer) throws SQLException
+	public nft getNFTOwner(int seller, int buyer) throws SQLException
 	{
 		NFT selectedNFT = null;
 		String sql = "SELECT * FROM NFT WHERE currentOwner = '"+seller+"'";
@@ -186,7 +195,7 @@ public class NFTDAO
 	}
 
 	
-	public void insertNFT(NFT selectedNFT) throws SQLException
+	public void insertNFT(nft selectedNFT) throws SQLException
 	{
 		connect_func();
 		String sql = "INSERT INTO NFT(name, description, nft, currentOwner) values (?, ?, ?, ?)";
@@ -199,13 +208,13 @@ public class NFTDAO
 		preparedStatement.close();	
 	}
 	
-	public boolean checkNFT(String name) throws SQLException
+	public boolean checkNFT(String nftName) throws SQLException
 	{
 		boolean check = false;
-		String sql = "SELECT * FROM NFT WHERE name = ?";
+		String sql = "SELECT * FROM NFT WHERE nftName = ?";
 		connect_func();
 		preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
-		preparedStatement.setString(1,  name);
+		preparedStatement.setString(1,  nftName);
 		ResultSet resultSet = preparedStatement.executeQuery();
 		System.out.println(check);
 		if(resultSet.next())
@@ -233,7 +242,7 @@ public class NFTDAO
 		return check;
 	}
 	
-	public List<NFT> listAllNFT() throws SQLException
+	public List<nft> listAllNFT() throws SQLException
 	{
 		List<NFT> listNFTS = new ArrayList<NFT>();
 		String sql = "SELECT * FROM NFT";
