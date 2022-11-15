@@ -1,6 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.Thread.State;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -252,6 +253,32 @@ public class NFTDAO
 		resultSet.close();
 		disconnect();
 		return listNFTS;
+	}
+
+	public void init() throws SQLException, FileNotFoundException, IOException
+	{
+		connect_func();
+		statement = (Statement) connect.createStatement();
+		String[] INITIAL = 
+		{
+			"USE testdb;",
+			"DROP TABLE if exists NFT;",
+			("CREATE TABLE if not exists NFT( "+
+			"NFTid INTEGER AUTO_INCREMENT PRIMARY KEY,"+
+			"name VARCHAR(40),"+
+			"description VARCHAR(500),"+
+			"nft VARCHAR(4000),"+
+			"currentOwner INTEGER,"+
+			"FOREIGN KEY(currentOwner) REFERENCES user(user_name)"
+			+ ");")
+		};
+
+		String[] TUPLES =
+		{
+			("INSERT into NFT(name, description, nft, currentOwner"+
+			"values (")
+		}
+
 	}
 
 	
