@@ -277,7 +277,7 @@ public class NFTDAO
 		{
 			("INSERT into NFT(name, description, nft, currentOwner"+
 			"values (")
-		}
+		};
 
 	}
 
