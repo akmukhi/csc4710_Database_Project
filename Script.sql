@@ -1,12 +1,12 @@
-
-
+/*drop database testdb;*/
 create database testdb;
+
+
 use testdb;
 
 drop table if exists User;
 CREATE TABLE if not exists User(
     email VARCHAR(50) NOT NULL,
-    user_name VARCHAR(50) NOT NULL,
     firstName VARCHAR(50) NOT NULL,
     lastName VARCHAR(50) NOT NULL,
     password VARCHAR(50) NOT NULL,
@@ -69,4 +69,15 @@ CREATE TABLE if not exists Transfer_History(
     transfer_date DATETIME,
     transferId int NOT NULL auto_increment,
     PRIMARY KEY (transferId)
+);
+
+
+drop table if exists list;
+CREATE TABLE if not exists list(
+transactionID int NOT NULL,
+date DATE, 
+price int NOT NULL,
+NFTid int,
+name VARCHAR(100),
+link VARCHAR(400)
 )
