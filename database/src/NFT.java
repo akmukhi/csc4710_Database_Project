@@ -1,15 +1,12 @@
-import java.sql.Timestamp;
-
 public class nft 
 {
 		protected int NFTid;
 		protected String nftName;
 		protected String nftDescription;
 		protected int listingPrice;
-		protected Timestamp listingTime;
+		protected String listingTime;
 		protected String uploadNFT;
 		protected String nftOwner;
-		protected String url;
 	 
 	    //constructors
 	    public nft() {
@@ -28,28 +25,36 @@ public class nft
 	    	this.nftOwner = nftOwner;
 	    }
 	    
-	    
-	    public nft(int NFTid, String nftName, String nftDescription,int listingPrice ,String uploadNFT , Timestamp listingTime, String nftOwner, String url)
+	    public nft(int NFTid, String nftName, String nftDescription,int listingPrice ,String uploadNFT , String listingTime, String nftOwner)
 	    {
-	    	this(nftDescription,listingPrice,uploadNFT,listingTime,nftOwner, url);   	
+	    	this.NFTid = NFTid;
 	    	this.nftName = nftName;
+	    	this.nftDescription = nftDescription;
+	    	this.listingPrice = listingPrice;
+	    	this.uploadNFT = uploadNFT;
+	    	this.listingTime = listingTime;
+	    	this.nftOwner = nftOwner;   	
 	    }
 	    
-	    public nft(String nftName, String nftDescription,int listingPrice ,String uploadNFT , Timestamp listingTime, String nftOwner, String url)
-	    {
-	    	this(nftDescription,listingPrice,uploadNFT,listingTime,nftOwner, url);   	
-	    	this.nftName = nftName;
-	    }
 	    
-	    public nft(String nftDescription, int listingPrice,  String uploadNFT, Timestamp listingTime, String nftOwner, String url)
+	    public nft(String nftName, String nftDescription,int listingPrice ,String uploadNFT , String listingTime, String nftOwner)
 	    {
 	    	this.nftName = nftName;
 	    	this.nftDescription = nftDescription;
 	    	this.listingPrice = listingPrice;
 	    	this.uploadNFT = uploadNFT;
 	    	this.listingTime = listingTime;
+	    	this.nftOwner = nftOwner;   	
+	    }
+	    
+	    
+	    public nft(String nftDescription, int listingPrice,  String uploadNFT, String listingTime, String nftOwner)
+	    {
+	    	this.nftDescription = nftDescription;
+	    	this.listingPrice = listingPrice;
+	    	this.uploadNFT = uploadNFT;
+	    	this.listingTime = listingTime;
 	    	this.nftOwner = nftOwner;
-	    	this.url = url;
 	    	
 	    }
 
@@ -69,10 +74,7 @@ public class nft
 	    public String getUploadNFT() {
 	    	return uploadNFT;
 	    }
-	    public String getURL() {
-	    	return url;
-	    }
-	    public Timestamp getListingTime() {
+	    public String getListingTime() {
 	    	return listingTime;
 	    }
 	    public String getnftOwner() {
@@ -98,13 +100,8 @@ public class nft
 	    public void setUploadNFT(String uploadNFT) {
 	    	this.uploadNFT = uploadNFT;
 	    }
-	    public void setListingTime(Timestamp listingTime) {
-	    	long time = listingTime.getTime();
-	        listingTime = new Timestamp(time);
-	    }
-	    public void setURL (String url)
-	    {
-	    	this.url = url;
+	    public void setListingTime(String listingTime) {
+	    	this.listingTime = listingTime;
 	    }
 
 

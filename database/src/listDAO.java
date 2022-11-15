@@ -77,7 +77,7 @@ public class listDAO
     public List<list> listing() throws SQLException
     {
         List<list> listing = new ArrayList<list>();
-        String sql = "SELECT n.name, n.link, m.* FROM list m JOIN NFT n ON m.NFTid = n.NFTid";
+        String sql = "SELECT n.name, n.link, m.* FROM list m JOIN NFT_ledger n ON m.name = n.nftName";
         connect_func();
         statement = (Statement) connect.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
@@ -114,7 +114,7 @@ public class listDAO
     {
         list l = null;
         int NFTid = Integer.parseInt(Id);
-        String sql = "SELECT * FROM list where Id = ?";
+        String sql = "SELECT * FROM list where name= ?";
         connect_func();
         preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
         preparedStatement.setInt(1, NFTid);
@@ -136,7 +136,7 @@ public class listDAO
     public List<list> listTransactions() throws SQLException
     {
         List<list> l = new ArrayList<list>();
-        String sql = "SELECT * FROM lsit NATURAL JOIN NFT";
+        String sql = "SELECT * FROM list NATURAL JOIN NFT";
         connect_func();
         statement = (Statement) connect.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
