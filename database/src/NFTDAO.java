@@ -268,18 +268,19 @@ public class nftDAO
 		disconnect();
 		return ownednft;
 	}
-e
-	public boolean transfer(String buyer, String seller) throws SQLException
-	{
-		String sql = "UPDATE NFT_ledger set nftOwner= ? WHERE nftOwner =?";
-		connect_func();
-		preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
-		preparedStatement.setString(1, buyer);
-		preparedStatement.setString(2, seller);
-		boolean rowUpdated = preparedStatement.executeUpdate()>0;
-		preparedStatement.close();
-		return rowUpdated;
-	}
+
+    public boolean transfer(String nftName, String nftOwner) throws SQLException {
+        String sql = "update nft_ledger set nftOwner = ? where nftName = ?";
+        connect_func();
+
+        preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
+        preparedStatement.setString(1, nftOwner);
+        preparedStatement.setString(2, nftName);
+
+        boolean rowUpdated = preparedStatement.executeUpdate() > 0;
+        preparedStatement.close();
+        return rowUpdated;
+}
 
 	public boolean transferToBuyer(String buyer, String name) throws SQLException
 	{

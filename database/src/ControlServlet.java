@@ -265,20 +265,10 @@ public class ControlServlet extends HttpServlet {
 
 		private void transfer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException
 		{
-			String transfertoEmail = request.getParameter("email");
-			String name = request.getParameter("name");
+			
 			System.out.println("transfer started: 0000000");
-
-			user holder = userDAO.getUser(currentUser);
-			user receiver = userDAO.getUser(transfertoEmail);
-
-			nft selected_NFT = nftDAO.getNFT(name);
-
-			if(holder.email == selected_NFT.nftOwner)
-			{
-				nftDAO.transfer(receiver.getEmail(), name);
-				
-			}
+			String nftName = request.getParameter("nftName");
+			String nftOwner = request.getParameter("nftOwner");
 			request.setAttribute("noNFTStr", "You don't own any NFT's");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/activity");
 			dispatcher.forward(request, response);
