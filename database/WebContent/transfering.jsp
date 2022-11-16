@@ -24,12 +24,14 @@
                     <tr>
                         <th>Transfer an NFT to a User</th>
                         <td align = "center" colspan="3">
-                            <input type ="text" name ="email" size="34" value="name@email.com" onfocus="this.value=''">
+                            <input type ="text" name ="nftOwner" size="34" value="nftOwner" onfocus="this.value=''">
                         </td>
                     </tr>
                     <tr>
                         <th>NFT that you want to transfer: </th>
-                        <td align="center" colspan="3"><input type="text" name="name" size="34"></td>
+                        <td align="center" colspan="3">
+                        <input type="text" name="nftName"  value="nftName" onfocus="this.value=''" size="34">
+                        </td>
                     </tr>
                     <tr>
                         <td align="center" colspan="4">
