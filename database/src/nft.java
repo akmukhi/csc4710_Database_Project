@@ -9,6 +9,7 @@ public class nft
 		protected String listingTime;
 		protected String uploadNFT;
 		protected String nftOwner;
+		protected int active;
 	 
 	    //constructors
 	    public nft() {
@@ -27,7 +28,7 @@ public class nft
 	    	this.nftOwner = nftOwner;
 	    }
 	    
-	    public nft(int NFTid, String nftName, String nftDescription,int listingPrice ,String uploadNFT , String listingTime, String nftOwner)
+	    public nft(int NFTid, String nftName, String nftDescription,int listingPrice ,String uploadNFT , String listingTime, String nftOwner, int active)
 	    {
 	    	this.NFTid = NFTid;
 	    	this.nftName = nftName;
@@ -36,6 +37,7 @@ public class nft
 	    	this.uploadNFT = uploadNFT;
 	    	this.listingTime = listingTime;
 	    	this.nftOwner = nftOwner;   	
+	    	this.active = active;
 	    }
 	    
 	    
@@ -47,16 +49,18 @@ public class nft
 	    	this.uploadNFT = uploadNFT;
 	    	this.listingTime = listingTime;
 	    	this.nftOwner = nftOwner;   	
+	    	this.active = active;
 	    }
 	    
 	    
-	    public nft(String nftDescription, int listingPrice,  String uploadNFT, String listingTime, String nftOwner)
+	    public nft(String nftDescription, int listingPrice,  String uploadNFT, String listingTime, String nftOwner, int active)
 	    {
 	    	this.nftDescription = nftDescription;
 	    	this.listingPrice = listingPrice;
 	    	this.uploadNFT = uploadNFT;
 	    	this.listingTime = listingTime;
 	    	this.nftOwner = nftOwner;
+	    	this.active = active;
 	    	
 	    }
 
@@ -64,6 +68,10 @@ public class nft
 		{
 			return NFTid;
 		}
+	    public int getactive()
+	  		{
+	  			return active;
+	  		}
 	    public String getnftName() {
 	    	return nftName;
 	    }
@@ -86,6 +94,9 @@ public class nft
 		{
 			this.NFTid = NFTid;
 		}
+	    public void setactive(int active) {
+	    	this.active = active;
+	    }
 	    public void setnftOwner(String nftOwner) {
 	    	this.nftOwner = nftOwner;
 	    }
