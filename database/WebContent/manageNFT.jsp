@@ -20,8 +20,11 @@
 	 <center>
 		 <a href="login.jsp"target ="_self" > logout</a><br><br> 
 		 <a href="createnft.jsp"target ="_self" > Create NFT</a><br><br> 
-		 <a href="transfernft.jsp"target ="_self" >Complete a transfer</a><br><br>
+		 <a href="transfering.jsp"target ="_self" >Complete a transfer</a><br><br>
 		  <a href="list.jsp"target ="_self" >List an NFT</a><br><br>
+		        <form action="showinactivenfts" method="post">
+ <input type="submit"  name="showinactivenfts" value="Show Your Inactive NFTs" />
+      </form> <br><br>
 		 </center>
 	</body>
 
@@ -33,6 +36,7 @@
                     onfocus="this.value=''"> <input type="submit"
                     value="Search Nft" />
       </form>
+
         <table border="1" cellpadding="6">
             <caption><h2>All available NFTs</h2></caption>
             <tr>
