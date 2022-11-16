@@ -1,6 +1,3 @@
-/*drop database testdb;*/
-create database testdb;
-
 
 use testdb;
 
@@ -44,6 +41,7 @@ CREATE TABLE if not exists NFT_Ledger(
     uploadNFT varchar(500) NOT NULL,
     nftDescription VARCHAR(100),
     nftOwner VARCHAR(50) NOT NULL,
+    active int,
     NFTid int NOT NULL auto_increment,
     PRIMARY KEY (NFTid)
     );
