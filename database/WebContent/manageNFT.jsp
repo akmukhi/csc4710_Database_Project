@@ -22,6 +22,8 @@
 		 <a href="createnft.jsp"target ="_self" > Create NFT</a><br><br> 
 		 <a href="transfering.jsp"target ="_self" >Complete a transfer</a><br><br>
 		  <a href="list.jsp"target ="_self" >List an NFT</a><br><br>
+		   <a href="usersearch.jsp"target ="_self" >Search Users</a><br><br>
+		   
 		        <form action="showinactivenfts" method="post">
  <input type="submit"  name="showinactivenfts" value="Show Your Inactive NFTs" />
       </form> <br><br>
@@ -51,8 +53,12 @@
             </tr>
             <c:forEach var="NFTs" items="${listNFT}">
                 <tr style="text-align:center">
-               	    <td>"${NFTs.NFTid}" </td>
-                    <td>"${NFTs.nftName}" </td>
+               	    <td>"${NFTs.NFTid}" </td>         	    
+                    <td>
+                    <form action="viewnftpage" method="get">
+                    <input name="nftName" type="submit" value="${NFTs.nftName}" onClick="viewnftpage"/>
+                    </form>
+                     </td>
                     <td>"${NFTs.nftDescription}"</td>
                     <td>"${NFTs.listingPrice}"</td>
                     <td><img src="${NFTs.uploadNFT}" width= "200" height="200"></td>
