@@ -129,6 +129,31 @@ public class nftDAO
         return nfts;
     }
 
+
+    //List function of a specific user for NFT
+    public List<nft> listUserList(String nftOwner) throws SQLException
+    {
+        List<nft> nft = new ArrayList<nft>();
+        String sql = "SELECT * FROM NFT WHERE nftOwner = '"+nftOwner+"'";
+        connect_func();
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        while(resultSet.next())
+        {
+            int NFTid = resultSet.getInt("NFTid");
+            String nftName = resultSet.getString("nftName");
+            String nftDescription = resultSet.getString("nftDescription");
+            int listingPrice = resultSet.getInt("listingPrice");
+            String listingTime = resultSet.getString("listingTime");
+            String uploadNFT = resultSet.getString("uploadNFT");
+            nftOwner = resultSet.getInt("nftOwner");
+            nft userNft = new nft(NFTid, nftName, nftDescription, listingPrice, uploadNFT, listingTime, nftOwner);
+            nft.add(userNft);
+        }
+        resultSet.close();
+        disconnect();
+        return nft;
+    }
     public boolean checknft(String nftName) throws SQLException { //DUPLICATE
     	boolean checks = false;
     	String sql = "SELECT * FROM nft_ledger WHERE nftName = ?";

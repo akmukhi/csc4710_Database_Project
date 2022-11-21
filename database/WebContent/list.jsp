@@ -19,12 +19,12 @@
                 </form>
             </div>
             <c:forEach var ="history" items="${NFTHistory}">
-                <c:if test ="${history.user == buyer.user}">
+                <c:if test ="${history.user_name == currentUser.user_name}">
                     <c:forEach var = "NFT" items="${list}">
                         <c:if test= "${history.NFTid == NFT.NFTid && history.transaction == 'has been sold'}">
-                            <h3><c:out value= "${NFT.description}"></c:out></h3>
+                            <h3><c:out value= "${NFT.nftName}"></c:out></h3>
                             <img src = <c:out value= "${NFT.link}"></c:out>>
-                            <p><c:out value="${NFT.description}"></c:out></p>
+                            <p><c:out value="${NFT.nftDescription}"></c:out></p>
                         </c:if>
                     </c:forEach>
 

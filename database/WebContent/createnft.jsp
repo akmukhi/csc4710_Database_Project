@@ -57,4 +57,19 @@
 			<a href="activitypage.jsp" target="_self">Return to Previous Page</a>
 		</form>
 	</div>
+
+	<h1>NFT that current user has created</h1>
+	<div class = "flexcontainer">
+		<c:forEach var = "history" items="${NFTHistory}">
+			<c:if test = "${history.user_name == currentUser.user_name}">
+				<c:forEach var = "nft" items="${list}">
+					<c:if test ="${history.NFTid == nft.NFTid && history.transaction == 'listed'}">
+						<h3><c:out value = "${nft.NFTid}"></c:out></h3>
+						<img src = <c:out value= "${nft.link}"></c:out>
+						<p><c:out value = "${nft.nftDescription}"></c:out></p>
+					</c:if>
+				</c:forEach>
+			</c:if>
+		</c:forEach>
+	</div>
 </body>

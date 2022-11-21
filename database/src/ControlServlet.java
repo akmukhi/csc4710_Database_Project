@@ -120,7 +120,15 @@ public class ControlServlet extends HttpServlet {
 	 	     
 	 	        List<nft> NFTs = nftDAO.listnfts();
 	 	        System.out.println(NFTs);
-	 	        request.setAttribute("listNFT", NFTs);       
+	 	        request.setAttribute("listNFT", NFTs);  
+				
+				List<NFTHistory> listHistory = NFTHistoryDAO.listAllHistory();
+				System.out.println(listHistory);
+				request.setAttribute("listHistory", listHistory);
+
+				user user = userDAO.getUser(currentUser);
+				System.out.println("user", user);
+				request.setAttribute("currentUser", user);
 	 	        RequestDispatcher dispatcher = request.getRequestDispatcher("manageNFT.jsp");       
 	 	        dispatcher.forward(request, response);
 	 	     
