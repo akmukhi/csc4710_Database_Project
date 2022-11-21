@@ -98,6 +98,13 @@ public class ControlServlet extends HttpServlet {
         	 case "/showinactivenfts": 
                  showinactivenfts(request, response);           	
                  break;
+        	 case "/profilesearch": 
+                 profilesearch(request, response);           	
+                 break;
+        	 case "/viewprofilelist":
+        		 viewprofilelist(request, response);
+        	 case "/viewnftpage":
+        		 viewnftpage(request, response);
 	    	}
         	
 	    }
@@ -113,11 +120,44 @@ public class ControlServlet extends HttpServlet {
 	     
 	        List<user> listUser = userDAO.listAllUsers();
 	        request.setAttribute("listUser", listUser);       
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("UserList.jsp");       
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("usersearch.jsp");       
 	        dispatcher.forward(request, response);
 	     
 	        System.out.println("listPeople finished: 111111111111111111111111111111111111");
 	    }
+
+	    private void viewprofilelist(HttpServletRequest request, HttpServletResponse response)
+	            throws SQLException, IOException, ServletException {
+	        System.out.println("viewprofile started: 00000000000000000000000000000000000");
+	        String email = request.getParameter("email");
+	        System.out.println(email);
+	        
+	        List<user> users = userDAO.viewprofilelist(email);
+	        System.out.println(users);
+	        request.setAttribute("listUser", users);     
+			RequestDispatcher dispatcher = request.getRequestDispatcher("viewprofile.jsp");
+			dispatcher.forward(request, response);
+	        	        
+	        
+	        System.out.println("viewprofile finished: 111111111111111111111111111111111111");
+	    }
+	    
+	    private void viewnftpage(HttpServletRequest request, HttpServletResponse response)
+	            throws SQLException, IOException, ServletException {
+	        System.out.println("viewprofile started: 00000000000000000000000000000000000");
+	        String nftName = request.getParameter("nftName");
+	        System.out.println(nftName);
+	        
+	        List<nft> NFTs = nftDAO.viewnftpage(nftName);
+	        System.out.println(NFTs);
+	        request.setAttribute("listNFT", NFTs);     
+			RequestDispatcher dispatcher = request.getRequestDispatcher("viewnft.jsp");
+			dispatcher.forward(request, response);
+	        	        
+	        
+	        System.out.println("viewprofile finished: 111111111111111111111111111111111111");
+	    }
+
 
 	    private void listNFTs(HttpServletRequest request, HttpServletResponse response)
 	 	            throws SQLException, IOException, ServletException {
@@ -238,6 +278,20 @@ public class ControlServlet extends HttpServlet {
 	   	 	}
 
 	    } 
+	    
+	    private void profilesearch(HttpServletRequest request, HttpServletResponse response)
+ 	            throws SQLException, IOException, ServletException {
+ 	        System.out.println("search started: 00000000000000000000000000000000000");
+
+ 	        String email = request.getParameter("profilesearch");
+ 	        List<user> users = userDAO.profilesearch(email);
+ 	        System.out.println(users);
+ 	        request.setAttribute("listUser", users);       
+ 	        RequestDispatcher dispatcher = request.getRequestDispatcher("usersearch.jsp");       
+ 	        dispatcher.forward(request, response);
+ 	     
+ 	        System.out.println("search finished: 111111111111111111111111111111111111");
+ 	    }
 	    
 	    
 	    private void nftsearch(HttpServletRequest request, HttpServletResponse response)
