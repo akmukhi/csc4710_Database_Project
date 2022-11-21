@@ -1,6 +1,5 @@
 public class user 
 {
-		protected String user_name;
 		protected String password;
 	 	protected String email;
 	    protected String firstName;
@@ -23,16 +22,22 @@ public class user
 	        this.email = email;
 	    }
 	    
-	    public user(String email, String user_name, String firstName, String lastName, String password,String birthday, String address_street_num, String address_street, String address_city, String address_state,String address_zip_code, int cash_bal,  int PPS_bal) 
+	    public user(String email, String firstName, String lastName) 
 	    {
-	    	this(user_name, firstName,lastName,password,birthday, address_street_num,  address_street,  address_city,  address_state,  address_zip_code,cash_bal,PPS_bal);
+	        this.email = email;
+	        this.firstName = firstName;
+	        this.lastName = lastName;
+	    }
+	    
+	    public user(String email,String firstName, String lastName, String password,String birthday, String address_street_num, String address_street, String address_city, String address_state,String address_zip_code, int cash_bal,  int PPS_bal) 
+	    {
+	    	this(firstName,lastName,password,birthday, address_street_num,  address_street,  address_city,  address_state,  address_zip_code,cash_bal,PPS_bal);
 	    	this.email = email;
 	    }
 	 
 	
-	    public user(String user_name, String firstName, String lastName, String password,String birthday, String address_street_num, String address_street, String address_city, String address_state,String address_zip_code, int cash_bal,  int PPS_bal) 
+	    public user(String firstName, String lastName, String password,String birthday, String address_street_num, String address_street, String address_city, String address_state,String address_zip_code, int cash_bal,  int PPS_bal) 
 	    {
-		this.user_name = user_name;
 	    	this.firstName = firstName;
 	    	this.lastName = lastName;
 	    	this.password = password;
@@ -53,12 +58,7 @@ public class user
 	    public void setEmail(String email) {
 	        this.email = email;
 	    }
-	    public String getUserName() {
-	        return user_name;
-	    }
-	    public void setUserName(String user_name) {
-	        this.user_name = user_name;
-	    }
+	    
 	    public String getFirstName() {
 	        return firstName;
 	    }
@@ -87,34 +87,34 @@ public class user
 	    	this.birthday = birthday;
 	    }
 	    
-	    public String getAddress_street_num() {
+	    public String getaddress_street_num() {
 	        return address_street_num;
 	    }
-	    public void setAddress_street_num(String address_street_num) {
+	    public void setaddress_street_num(String address_street_num) {
 	        this.address_street_num = address_street_num;
 	    }
-	    public String getAddress_street() {
+	    public String getaddress_street() {
 	        return address_street;
 	    }
-	    public void setAddress_street(String address_street) {
+	    public void setaddress_street(String address_street) {
 	        this.address_street = address_street;
 	    }
-	    public String getAddress_city() {
+	    public String getaddress_city() {
 	        return address_city;
 	    }
-	    public void setAddress_city(String address_city) {
+	    public void setaddress_city(String address_city) {
 	        this.address_city = address_city;
 	    }
-	    public String getAddress_state() {
+	    public String getaddress_state() {
 	        return address_state;
 	    }
-	    public void setAddress_state(String address_state) {
+	    public void setaddress_state(String address_state) {
 	        this.address_state = address_state;
 	    }
-	    public String getAddress_zip_code() {
+	    public String getaddress_zip_code() {
 	        return address_zip_code;
 	    }
-	    public void setAddress_zip_code(String address_zip_code) {
+	    public void setaddress_zip_code(String address_zip_code) {
 	        this.address_zip_code = address_zip_code;
 	    }
 	    
