@@ -131,6 +131,37 @@ public class nftDAO
         return nfts;
     }
     
+    //PART 3
+    public List<nft> viewnftpage(String name) throws SQLException {
+    	List<nft> nfts = new ArrayList<nft>();
+    	String sql = "SELECT * FROM NFT_ledger WHERE nftName = '"+name+"'";
+    	   System.out.println(sql);
+    	   try {
+    		   connect_func();      
+    	         statement = (Statement) connect.createStatement();
+    	         ResultSet resultSet = statement.executeQuery(sql);
+    	         
+    	         while (resultSet.next()) {
+    	         	int NFTid = resultSet.getInt("NFTid");
+    	             String nftName = resultSet.getString("nftName");
+    	             String nftDescription = resultSet.getString("nftDescription");
+    	             int listingPrice = resultSet.getInt("listingPrice");
+    	             String uploadnft = resultSet.getString("uploadnft");
+    	             String listingTime = resultSet.getString("listingTime");
+    	             String nftOwner = resultSet.getString("nftOwner"); 
+    	             int active = resultSet.getInt("active");
+    	              
+    	             nfts.add(new nft(NFTid, nftName, nftDescription, listingPrice, uploadnft, listingTime, nftOwner, active));
+    	         }     
+    	   resultSet.close(); 	 
+    	   }
+		 catch(SQLException e) {
+		System.out.println(e.toString());
+		 }  
+    	   return nfts;
+    	   
+    }
+    
     public List<nft> showinactivenfts() throws SQLException {
         List<nft> nfts = new ArrayList<nft>();        
         String sql = "SELECT * FROM nft_Ledger WHERE active = 0"; 
@@ -402,6 +433,8 @@ public class nftDAO
         preparedStatement.close();
         return selectedNFT;
     }
+	
+	
     
     
 	
