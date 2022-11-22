@@ -18,16 +18,25 @@
                     <input type = "submit" value="List"/>
                 </form>
             </div>
-            <c:forEach var ="history" items="${NFTHistory}">
+            <h1>NFTS that have been created by you.</h1>
+            <c:forEach var ="history" items="${user}">
                 <c:if test ="${history.user_name == currentUser.user_name}">
                     <c:forEach var = "NFT" items="${list}">
-                        <c:if test= "${history.NFTid == NFT.NFTid && history.transaction == 'has been sold'}">
-                            <h3><c:out value= "${NFT.nftName}"></c:out></h3>
+                        <c:if test= "${history.NFTid == NFT.NFTid && history.transactionId == 'has been sold'}">
+                            <h3><c:out value= "${NFT.name}"></c:out></h3>
                             <img src = <c:out value= "${NFT.link}"></c:out>>
-                            <p><c:out value="${NFT.nftDescription}"></c:out></p>
                         </c:if>
                     </c:forEach>
 
+                </c:if>
+            </c:forEach>
+
+            <h2>NFTS that have been bought by you.</h2>
+            <c:forEach var = "transactionHistory" items="${user}">
+                <c:if test = "${transactionHistory.user_name == transactionHistory.user_name}">
+                    <c:forEach var = "NFT" items = "${nft}">
+                        <c:if test= "${transactionHistory.NFTid == NFT.NFTid && transactionHistory."
+                    </c:forEach>
                 </c:if>
             </c:forEach>
         </body>

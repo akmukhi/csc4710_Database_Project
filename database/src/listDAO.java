@@ -155,6 +155,7 @@ public class listDAO
         return l;
     }
 
+
     public boolean delete(int NFTid) throws SQLException
     {
         String sql = "DELETE FROM lsit WHERE NFTid = ?";

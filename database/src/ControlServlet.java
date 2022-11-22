@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.w3c.dom.UserDataHandler;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -112,29 +114,25 @@ public class ControlServlet extends HttpServlet {
 	     
 	        System.out.println("listPeople finished: 111111111111111111111111111111111111");
 	    }
-
+		//Edited the below function Aakash
 	    private void listNFTs(HttpServletRequest request, HttpServletResponse response)
 	 	            throws SQLException, IOException, ServletException {
 	 	        System.out.println("listNFT started: 00000000000000000000000000000000000");
 
-	 	     
-	 	        List<nft> NFTs = nftDAO.listnfts();
-	 	        System.out.println(NFTs);
-	 	        request.setAttribute("listNFT", NFTs);  
-				
-				List<NFTHistory> listHistory = NFTHistoryDAO.listAllHistory();
-				System.out.println(listHistory);
-				request.setAttribute("listHistory", listHistory);
+				List<nft> nftFromCurrentOwner = nftDAO.listOwnernft(currentUser);
+				request.setAttribute("nftFromCurrentOwner", nftFromCurrentOwner);
 
-				user user = userDAO.getUser(currentUser);
-				System.out.println("user", user);
-				request.setAttribute("currentUser", user);
-	 	        RequestDispatcher dispatcher = request.getRequestDispatcher("manageNFT.jsp");       
-	 	        dispatcher.forward(request, response);
+				list userNFTlist = listDAO.getList(currentUser);
+				request.setAttribute("userNFTlist", userNFTlist);
+
+				List<list> transactionHistory = listDAO.listTransactions();
+				request.setAttribute("TransactionHistory", transactionHistory);
+				
+
 	 	     
 	 	        System.out.println("listNFT finished: 111111111111111111111111111111111111");
 	 	    }
-	    	        
+	    //-----------------------------------------------------------        
 	    private void rootPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException{
 	    	System.out.println("root view");
 			request.setAttribute("listUser", userDAO.listAllUsers());

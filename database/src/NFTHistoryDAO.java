@@ -1,4 +1,4 @@
-import java.io.FileNotFoundException;
+/*import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.DriverManager;
@@ -89,7 +89,7 @@ public class NFTHistoryDAO
         preparedStatement.executeUpdate();
         preparedStatement.close();
     }
-    public void recordOfSale(user buyer, user seller, NFT selectedNft) throws SQLException
+    public void recordOfSale(user buyer, user seller, nft selectedNft) throws SQLException
     {
         connect_func();
         String sql = "INSERT into Record(user, NFTid, transactionDetails, transaction, date) values (?, ?, ?, ?, NOW())";
@@ -108,7 +108,7 @@ public class NFTHistoryDAO
         preparedStatement.close();
     }
 
-    public void transfer(user seller, user buyer, NFT selectedNft) throws SQLException
+    public void transfer(user seller, user buyer, nft selectedNft) throws SQLException
     {
         connect_func();
         String sql = "INSERT into Record(user, NFTid, transactionDetails, transaction, date) values (?, ?, ?, ?, NOW())";
@@ -195,3 +195,4 @@ public class NFTHistoryDAO
 
     
 }
+*/

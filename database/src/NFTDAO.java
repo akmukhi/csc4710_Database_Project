@@ -131,7 +131,9 @@ public class nftDAO
 
 
     //List function of a specific user for NFT
-    public List<nft> listUserList(String nftOwner) throws SQLException
+
+    //ignoree this i realized it is redundent
+    /*public List<nft> listUserList(String nftOwner) throws SQLException
     {
         List<nft> nft = new ArrayList<nft>();
         String sql = "SELECT * FROM NFT WHERE nftOwner = '"+nftOwner+"'";
@@ -146,14 +148,14 @@ public class nftDAO
             int listingPrice = resultSet.getInt("listingPrice");
             String listingTime = resultSet.getString("listingTime");
             String uploadNFT = resultSet.getString("uploadNFT");
-            nftOwner = resultSet.getInt("nftOwner");
+            nftOwner = resultSet.getString("nftOwner");
             nft userNft = new nft(NFTid, nftName, nftDescription, listingPrice, uploadNFT, listingTime, nftOwner);
             nft.add(userNft);
         }
         resultSet.close();
         disconnect();
         return nft;
-    }
+    }*/
     public boolean checknft(String nftName) throws SQLException { //DUPLICATE
     	boolean checks = false;
     	String sql = "SELECT * FROM nft_ledger WHERE nftName = ?";
