@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import javax.naming.spi.DirStateFactory.Result;
+import javax.print.DocFlavor.STRING;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -110,9 +111,9 @@ public class listDAO
         return rowDeleted;
     }
 
-    public list getList(String Id) throws SQLException
+    public List<list> getList(String Id) throws SQLException
     {
-        list l = null;
+        List<list> l = new ArrayList<list>();
         int NFTid = Integer.parseInt(Id);
         String sql = "SELECT * FROM list where name= ?";
         connect_func();
@@ -153,6 +154,51 @@ public class listDAO
         resultSet.close();
         disconnect();
         return l;
+    }
+
+    public List<list> listBought(String buyer) throws SQLException
+    {
+        List<list> x = new ArrayList<list>();
+        String sql = "SELECT * FROM Transaction_History WHERE nftOwner = '"+buyer+"'";
+        connect_func();
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        while(resultSet.next())
+        {
+            int transactionID = resultSet.getInt("transactionID");
+            Timestamp date = resultSet.getTimestamp("date");
+            int price = resultSet.getInt("price");
+            int NFTid = resultSet.getInt("NFTid");
+            String name = resultSet.getString("name");
+            String link = resultSet.getString("link");
+            list buyerTransaction = new list(transactionID, date, price, NFTid, name, link);
+            x.add(buyerTransaction);
+        }
+        resultSet.close();
+        disconnect();
+        return x;  
+    }
+    public List<list> listSold(String seller) throws SQLException
+    {
+        List<list> y = new ArrayList<list>();
+        String sql = "SELECT * FROM Transaction_History WHERE nftOwner = '"+seller+"'";
+        connect_func();
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        while(resultSet.next())
+        {
+            int transactionID = resultSet.getInt("transactionID");
+            Timestamp date = resultSet.getTimestamp("date");
+            int price = resultSet.getInt("price");
+            int NFTid = resultSet.getInt("NFTid");
+            String name = resultSet.getString("name");
+            String link = resultSet.getString("link");
+            list sellerTransaction = new list(transactionID, date, price, NFTid, name, link);
+            y.add(sellerTransaction);
+        }
+        resultSet.close();
+        disconnect();
+        return y;
     }
 
 
