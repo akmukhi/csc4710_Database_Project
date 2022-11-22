@@ -124,6 +124,13 @@ public class ControlServlet extends HttpServlet {
 	     
 	        System.out.println("listPeople finished: 111111111111111111111111111111111111");
 	    }
+	    private void listNFTs(HttpServletRequest request, HttpServletResponse response)
+ 	            throws SQLException, IOException, ServletException {
+ 	        System.out.println("listNFT started: 00000000000000000000000000000000000");
+			List<nft> nftFromCurrentOwner = nftDAO.listOwnernft(currentUser);
+			request.setAttribute("nftFromCurrentOwner", nftFromCurrentOwner);
+ 	        System.out.println("listNFT finished: 111111111111111111111111111111111111");
+ 	    }
 		//Edited the below function Aakash
 	    private void listMintedNFTs(HttpServletRequest request, HttpServletResponse response)
 	 	            throws SQLException, IOException, ServletException {
@@ -133,14 +140,14 @@ public class ControlServlet extends HttpServlet {
 	 	        System.out.println("listNFT finished: 111111111111111111111111111111111111");
 	 	    }
 	    
-		private void soldNFTs(HttpsServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException
+		private void soldNFTs(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException
 		{
 			System.out.println("Sold NFTS has started: 00000000000000000000");
 			List<list> soldNft = listDAO.listSold(currentUser);
 			request.setAttribute("soldNft", soldNft);
 			System.out.println("soldNFT finished: 11111111111111111111111111");
 		}
-		private void boughtNFTs(HttpsServletRequest request, HttpsServletResponse response)
+		private void boughtNFTs(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException
 		{
 			System.out.println("Bought NFTS has started: 00000000000000000000");
 			List<list> boughtNft = listDAO.listBought(currentUser);
