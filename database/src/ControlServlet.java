@@ -94,6 +94,9 @@ public class ControlServlet extends HttpServlet {
         	 case "/list": 
                  listTrade(request, response);           	
                  break;
+			case "/currentUserNft":
+				listNFTs(request, response);
+				break;
 	    	}
         	
 	    }
