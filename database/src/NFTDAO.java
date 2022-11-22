@@ -89,7 +89,7 @@ public class nftDAO
     
     public void insert(nft nfts) throws SQLException {
     	connect_func("root","pass1234");         
-		String sql = "insert into nft_ledger(nftName ,nftDescription ,listingPrice ,uploadnft ,listingTime, nftOwner) values (?, ?, ?, ?, ?, ?)";
+		String sql = "insert into nft_ledger(nftName ,nftDescription ,listingPrice ,uploadnft ,listingTime, nftOwner, active) values (?, ?, ?, ?, ?, ?, ?)";
 			preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
 			preparedStatement.setString(1, nfts.getnftName());
 			preparedStatement.setString(2, nfts.getNftDescription());
@@ -97,6 +97,7 @@ public class nftDAO
 			preparedStatement.setString(4, nfts.getUploadNFT());
 			preparedStatement.setString(5, nfts.getListingTime());		
 			preparedStatement.setString(6, nfts.getnftOwner());	
+			preparedStatement.setInt(7, 0);
 			
 		preparedStatement.executeUpdate();
         preparedStatement.close();
@@ -104,7 +105,7 @@ public class nftDAO
     
     public List<nft> listnfts() throws SQLException {
         List<nft> nfts = new ArrayList<nft>();        
-        String sql = "SELECT * FROM nft_Ledger"; 
+        String sql = "SELECT * FROM nft_Ledger WHERE active = 1"; 
         try {
         connect_func();
         statement = (Statement) connect.createStatement();
@@ -118,8 +119,9 @@ public class nftDAO
             String uploadnft = resultSet.getString("uploadnft");
             String listingTime = resultSet.getString("listingTime");
             String nftOwner = resultSet.getString("nftOwner"); 
+            int active = resultSet.getInt("active");
              
-            nfts.add(new nft(NFTid, nftName, nftDescription, listingPrice, uploadnft, listingTime, nftOwner));
+            nfts.add(new nft(NFTid, nftName, nftDescription, listingPrice, uploadnft, listingTime, nftOwner, active));
         }        
         resultSet.close();
     } catch(SQLException e) {
@@ -128,34 +130,80 @@ public class nftDAO
   
         return nfts;
     }
-
-
-    //List function of a specific user for NFT
-
-    //ignoree this i realized it is redundent
-    /*public List<nft> listUserList(String nftOwner) throws SQLException
-    {
-        List<nft> nft = new ArrayList<nft>();
-        String sql = "SELECT * FROM NFT WHERE nftOwner = '"+nftOwner+"'";
+    
+    //PART 3
+    public List<nft> viewnftpage(String name) throws SQLException {
+    	List<nft> nfts = new ArrayList<nft>();
+    	String sql = "SELECT * FROM NFT_ledger WHERE nftName = '"+name+"'";
+    	   System.out.println(sql);
+    	   try {
+    		   connect_func();      
+    	         statement = (Statement) connect.createStatement();
+    	         ResultSet resultSet = statement.executeQuery(sql);
+    	         
+    	         while (resultSet.next()) {
+    	         	int NFTid = resultSet.getInt("NFTid");
+    	             String nftName = resultSet.getString("nftName");
+    	             String nftDescription = resultSet.getString("nftDescription");
+    	             int listingPrice = resultSet.getInt("listingPrice");
+    	             String uploadnft = resultSet.getString("uploadnft");
+    	             String listingTime = resultSet.getString("listingTime");
+    	             String nftOwner = resultSet.getString("nftOwner"); 
+    	             int active = resultSet.getInt("active");
+    	              
+    	             nfts.add(new nft(NFTid, nftName, nftDescription, listingPrice, uploadnft, listingTime, nftOwner, active));
+    	         }     
+    	   resultSet.close(); 	 
+    	   }
+		 catch(SQLException e) {
+		System.out.println(e.toString());
+		 }  
+    	   return nfts;
+    	   
+    }
+    
+    public List<nft> showinactivenfts() throws SQLException {
+        List<nft> nfts = new ArrayList<nft>();        
+        String sql = "SELECT * FROM nft_Ledger WHERE active = 0"; 
+        try {
         connect_func();
         statement = (Statement) connect.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
-        while(resultSet.next())
-        {
-            int NFTid = resultSet.getInt("NFTid");
+         
+        while (resultSet.next()) {
+        	int NFTid = resultSet.getInt("NFTid");
             String nftName = resultSet.getString("nftName");
             String nftDescription = resultSet.getString("nftDescription");
             int listingPrice = resultSet.getInt("listingPrice");
+            String uploadnft = resultSet.getString("uploadnft");
             String listingTime = resultSet.getString("listingTime");
-            String uploadNFT = resultSet.getString("uploadNFT");
-            nftOwner = resultSet.getString("nftOwner");
-            nft userNft = new nft(NFTid, nftName, nftDescription, listingPrice, uploadNFT, listingTime, nftOwner);
-            nft.add(userNft);
-        }
+            String nftOwner = resultSet.getString("nftOwner"); 
+            int active = resultSet.getInt("active");
+             
+            nfts.add(new nft(NFTid, nftName, nftDescription, listingPrice, uploadnft, listingTime, nftOwner, active));
+        }        
         resultSet.close();
-        disconnect();
-        return nft;
-    }*/
+    } catch(SQLException e) {
+    	System.out.println(e.toString());
+    }   
+  
+        return nfts;
+    }
+    
+    public boolean listactivenft(String nftName, int active) throws SQLException {
+        String sql = "update nft_ledger set active = 1 where nftName = ?";
+        connect_func();
+
+        preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
+        preparedStatement.setString(1, nftName);
+        preparedStatement.setInt(2, 1);
+        preparedStatement.executeUpdate();
+        boolean rowUpdated = preparedStatement.executeUpdate() > 0;
+        preparedStatement.close();
+        return rowUpdated;
+    }
+
+
     public boolean checknft(String nftName) throws SQLException { //DUPLICATE
     	boolean checks = false;
     	String sql = "SELECT * FROM nft_ledger WHERE nftName = ?";
@@ -174,6 +222,9 @@ public class nftDAO
     	return checks;
     }
 
+///////////////
+    
+    
 
     public boolean decfunds(String nftOwner, int listingPrice, int cash_bal) throws SQLException {
     	String sql2 = "UPDATE User SET cash_bal = ? WHERE email = ?";
@@ -190,6 +241,8 @@ public class nftDAO
     	return rowUpdated;
     	
     }
+    
+    
     
     public int getlistingprice(String nftName) throws SQLException {
     	String sql = "select listingPrice from nft_Ledger WHERE nftName = ?";
@@ -219,7 +272,7 @@ public class nftDAO
  
     public List<nft> search(String nftsearch) throws SQLException {
         List<nft> nfts = new ArrayList<nft>();        
-        String sql = "SELECT * FROM nft_Ledger WHERE nftName LIKE '%"+nftsearch+"%'"; 
+        String sql = "SELECT * FROM nft_Ledger WHERE nftName LIKE '%"+nftsearch+"%' AND active = 1"; 
         System.out.println(sql);
         try {
         connect_func();
@@ -235,8 +288,9 @@ public class nftDAO
             String uploadnft = resultSet.getString("uploadnft");
             String listingTime = resultSet.getString("listingTime");
             String nftOwner = resultSet.getString("nftOwner"); 
+            int active = resultSet.getInt("active");
              
-            nfts.add(new nft(NFTid, nftName, nftDescription, listingPrice, uploadnft, listingTime, nftOwner));
+            nfts.add(new nft(NFTid, nftName, nftDescription, listingPrice, uploadnft, listingTime, nftOwner, active));
         }        
         resultSet.close();
         disconnect();
@@ -248,7 +302,7 @@ public class nftDAO
     }
 
    //AAKASH WORK 
- 
+
     public List<nft> listSelectedNFT(String search) throws SQLException
     {
         List<nft> selectedNFT = new ArrayList<nft>();
@@ -265,7 +319,8 @@ public class nftDAO
             String uploadNFT = resultSet.getString("uploadNFT");
             String listingTime = resultSet.getString("listingTime");
             String nftOwner = resultSet.getString("nftOwner");
-            nft pickedNFT = new nft(NFTid, nftName, nftDescription,listingPrice,uploadNFT,listingTime,nftOwner);
+            int active = resultSet.getInt("active");
+            nft pickedNFT = new nft(NFTid, nftName, nftDescription,listingPrice,uploadNFT,listingTime,nftOwner, active);
             selectedNFT.add(pickedNFT);
         }
         resultSet.close();
@@ -273,28 +328,6 @@ public class nftDAO
         return selectedNFT;
     }
 
-	public List<nft> listOwnernft(String owner) throws SQLException
-	{
-		List<nft> ownednft = new ArrayList<nft>();
-		String sql = "SELECT * FROM NFT_ledger WHERE nftOwner = '"+owner+"'";
-		connect_func();
-		statement = (Statement) connect.createStatement();
-		ResultSet resultSet = statement.executeQuery(sql);
-		while(resultSet.next())
-		{
-			int NFTid = resultSet.getInt("NFTid");
-        	String nftName = resultSet.getString("nftName");
-            String nftDescription = resultSet.getString("nftDescription");
-            int listingPrice = resultSet.getInt("listingPrice");
-            String uploadnft = resultSet.getString("uploadnft");
-            String listingTime = resultSet.getString("listingTime");
-            String nftOwner = resultSet.getString("nftOwner"); 
-            ownednft.add(new nft(NFTid, nftName, nftDescription, listingPrice, uploadnft, listingTime, nftOwner));
-		}
-		resultSet.close();
-		disconnect();
-		return ownednft;
-	}
 
     public boolean transfer(String nftName, String nftOwner) throws SQLException {
         String sql = "update nft_ledger set nftOwner = ? where nftName = ?";
@@ -307,20 +340,8 @@ public class nftDAO
         boolean rowUpdated = preparedStatement.executeUpdate() > 0;
         preparedStatement.close();
         return rowUpdated;
-}
-
-	public boolean transferToBuyer(String buyer, String name) throws SQLException
-	{
-		String sql = "UPDATE nft_ledger set nftOwner= ? WHERE nftName = ?";
-		connect_func();
-		preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
-		preparedStatement.setString(1, buyer);
-		preparedStatement.setString(2, name);
-		boolean rowUpdated = preparedStatement.executeUpdate()>0;
-		preparedStatement.close();
-		return rowUpdated;
-	}
-
+    }
+    
 	public nft getnftOwner(String seller, String buyer) throws SQLException
 	{
 		nft selectednft = null;
@@ -337,7 +358,8 @@ public class nftDAO
             String uploadnft = resultSet.getString("uploadnft");
             String listingTime = resultSet.getString("listingTime");
             String nftOwner = resultSet.getString("nftOwner"); 
-            selectednft = new nft(NFTid, nftName, nftDescription, listingPrice, uploadnft, listingTime, nftOwner);
+            int active = resultSet.getInt("active");
+            selectednft = new nft(NFTid, nftName, nftDescription, listingPrice, uploadnft, listingTime, nftOwner, active);
 		}
 		resultSet.close();
 		statement.close();
@@ -381,12 +403,92 @@ public class nftDAO
             String listingTime = resultSet.getString("listingTime");
             String uploadNFT = resultSet.getString("uploadNFT");
             String nftOwner = resultSet.getString("nftOwner");
-            selectedNFT = new nft(NFTid, nftName, nftDescription, listingPrice, uploadNFT, listingTime, nftOwner);
+            int active = resultSet.getInt("active");
+            selectedNFT = new nft(NFTid, nftName, nftDescription, listingPrice, uploadNFT, listingTime, nftOwner, active);
         }
         resultSet.close();
         preparedStatement.close();
         return selectedNFT;
     }
+	
+//AAKASH LIST 
+
+	public List<nft> listOwnernft(String owner) throws SQLException
+	{
+		List<nft> nfts = new ArrayList<nft>();
+		String sql = "SELECT * FROM NFT_Ledger a LEFT JOIN list b ON b.nftName = a.nftName WHERE original_lister ='"+owner+"'";
+		connect_func();
+		statement = (Statement) connect.createStatement();
+		ResultSet resultSet = statement.executeQuery(sql);
+		while(resultSet.next())
+		{
+			int NFTid = resultSet.getInt("NFTid");
+        	String nftName = resultSet.getString("nftName");
+            String nftDescription = resultSet.getString("nftDescription");
+            int listingPrice = resultSet.getInt("listingPrice");
+            String uploadnft = resultSet.getString("uploadnft");
+            String listingTime = resultSet.getString("listingTime");
+            String nftOwner = resultSet.getString("nftOwner"); 
+            int active = resultSet.getInt("active");
+            
+            nfts.add(new nft(NFTid, nftName, nftDescription, listingPrice, uploadnft, listingTime, nftOwner, active));
+		}
+		resultSet.close();
+		disconnect();
+		return nfts;
+	}
+	
+    public List<nft> listBought(String buyer) throws SQLException
+    {
+        List<nft> nfts = new ArrayList<nft>();
+        String sql = "SELECT * FROM NFT_Ledger a LEFT JOIN Transaction_History b ON b.nftName = a.nftName WHERE current_owner = '"+buyer+"'";
+        connect_func();
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        while(resultSet.next())
+        {
+        	int NFTid = resultSet.getInt("NFTid");
+        	String nftName = resultSet.getString("nftName");
+            String nftDescription = resultSet.getString("nftDescription");
+            int listingPrice = resultSet.getInt("listingPrice");
+            String uploadnft = resultSet.getString("uploadnft");
+            String listingTime = resultSet.getString("listingTime");
+            String nftOwner = resultSet.getString("nftOwner"); 
+            int active = resultSet.getInt("active");
+
+            nfts.add(new nft(NFTid, nftName, nftDescription, listingPrice, uploadnft, listingTime, nftOwner, active));
+        }
+        resultSet.close();
+        disconnect();
+        return nfts;  
+    }
+    
+    public List<nft> listSold(String seller) throws SQLException
+    {
+        List<nft> nfts = new ArrayList<nft>();
+        String sql = "SELECT * FROM NFT_Ledger a LEFT JOIN Transaction_History b ON b.nftName = a.nftName WHERE previous_owner = '"+seller+"'";
+        connect_func();
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        while(resultSet.next())
+        {
+        	int NFTid = resultSet.getInt("NFTid");
+        	String nftName = resultSet.getString("nftName");
+            String nftDescription = resultSet.getString("nftDescription");
+            int listingPrice = resultSet.getInt("listingPrice");
+            String uploadnft = resultSet.getString("uploadnft");
+            String listingTime = resultSet.getString("listingTime");
+            String nftOwner = resultSet.getString("nftOwner"); 
+            int active = resultSet.getInt("active");
+
+            nfts.add(new nft(NFTid, nftName, nftDescription, listingPrice, uploadnft, listingTime, nftOwner, active));
+        }
+        resultSet.close();
+        disconnect();
+        return nfts;  
+    }
+	
+	
     
     
 	

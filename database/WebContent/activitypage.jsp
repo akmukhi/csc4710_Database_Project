@@ -16,7 +16,7 @@
 	 <center>
 		 <a href="login.jsp"target ="_self" > logout</a><br><br> 
 		 <a href="createnft.jsp"target ="_self" >Create an NFT</a><br><br> 
-		 <a href="listNFTs" target ="_self" >Go to main page</a><br><br>
+		 <a href="list.jsp" target ="_self" >Go to main page</a><br><br>
 		 </center>
 	</body>
 </html>
