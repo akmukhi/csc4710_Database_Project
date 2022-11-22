@@ -32,7 +32,7 @@
             </c:forEach>
 
             <h2>NFTS that have been bought/sold by you.</h2>
-            <c:forEach var = "transactionHistory" items="${user}">
+    <!--        <c:forEach var = "transactionHistory" items="${user}">
                 <c:if test = "${transactionHistory.user_name == transactionHistory.user_name}">
                     <c:forEach var = "NFT" items = "${nft}">
                         <c:if test= "${transactionHistory.NFTid == NFT.NFTid && transactionHistory.}">
@@ -41,6 +41,6 @@
                         </c:if>
                     </c:forEach>
                 </c:if>
-            </c:forEach>
+            </c:forEach>-->
         </body>
     </html>
