@@ -135,7 +135,7 @@ public class ControlServlet extends HttpServlet {
 			System.out.println("diamond hands started: 00000000000000000000000000000");
 			List<user> diamondHands = userDAO.diamond();
 			request.setAttribute("diamondHands", diamondHands);
-			request.getRequestDispatcher("userStatus.jsp").forward(request, response);
+			request.getRequestDispatcher("sample.jsp").forward(request, response);
 			System.out.println("diamond hands ended: 11111111111111111111111111111111");
 		}
 
@@ -145,7 +145,7 @@ public class ControlServlet extends HttpServlet {
 			System.out.println("Good Buyer started: 000000000000000000");
 			List<user> goodBuyer = userDAO.goodBuyer();
 			request.setAttribute("goodBuyer", goodBuyer);
-			request.getRequestDispatcher("userStatus.jsp").forward(request,response);
+			request.getRequestDispatcher("sample.jsp").forward(request,response);
 			System.out.println("Good Buyer ended: 1111111111111111111111111");
 		}
 
@@ -155,7 +155,7 @@ public class ControlServlet extends HttpServlet {
 			System.out.println("Big Seller started: 000000000000000000");
 			List<user> bigSeller = userDAO.bigSeller();
 			request.setAttribute("bigSeller", bigSeller);
-			request.getRequestDispatcher("userStatus.jsp").forward(request,response);
+			request.getRequestDispatcher("sample.jsp").forward(request,response);
 			System.out.println("Big Seller ended: 1111111111111111111111111");
 		}
 	    
@@ -165,7 +165,7 @@ public class ControlServlet extends HttpServlet {
 			System.out.println("Big Creators started: 000000000000000000");
 			List<user> bigCreator = userDAO.bigCreator();
 			request.setAttribute("bigCreator", bigCreator);
-			request.getRequestDispatcher("userStatus.jsp").forward(request,response);
+			request.getRequestDispatcher("sample.jsp").forward(request,response);
 			System.out.println("Big Creator ended: 1111111111111111111111111");
 		}
 		
@@ -175,7 +175,7 @@ public class ControlServlet extends HttpServlet {
 			System.out.println("Big Buyer started: 000000000000000000");
 			List<user> bigBuyer = userDAO.bigBuyer();
 			request.setAttribute("bigBuyer", bigBuyer);
-			request.getRequestDispatcher("userStatus.jsp").forward(request,response);
+			request.getRequestDispatcher("sample.jsp").forward(request,response);
 			System.out.println("Big Buyer ended: 1111111111111111111111111");
 		}
 
