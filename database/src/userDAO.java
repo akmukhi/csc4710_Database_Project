@@ -1,6 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.Thread.State;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -239,8 +240,103 @@ public class userDAO
        	return checks;
     }
     
+    //Part 1 Big creaters
+    public List<user> bigCreator() throws SQLException
+    {
+        List<user> listUser = new ArrayList<user>();
+        userDAO user = new userDAO();
+        String sql = "SELECT creator_id, COUNT(creator_id) AS 'value_occurence' FROM Transaction_History"+" GROUP BY creator_id"+" ORDER BY 'value_occurence' DESC LIMIT 1;";
+        connect_func();
+        preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
+        statement = (Statement) connect.prepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery(sql);
+        while(resultSet.next())
+        {
+            String email = resultSet.getString(email);
+            listUser.add(user.getUser(email));
+        }
+        resultSet.close();
+        disconnect();
+        return listUser;
+    }
+
+    //Part 2 Big Seller
+    public List<user> bigSeller() throws SQLException
+    {
+        List<user> listUser = new ArrayList<user>();
+        userDAO user = new userDAO();
+        String sql = "SELECT previous_owner, COUNT(previous_owner) AS 'value_occurence' FROM Transfer_History"+" GROUP BY previous_owner"+"ORDER BY 'value_occurence' DESC LIMIT 1;";
+        connect_func();
+        preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
+        statement = (Statement) connect.prepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery(sql);
+        while(resultSet.next())
+        {
+            String email = resultSet.getString(email);
+            listUser.add(user.getUser(email));
+        }
+        resultSet.close();
+        disconnect();
+        return listUser;
+    }
+
+    //Part 3 Big Buyer
+    public List<user> bigBuyer() throws SQLException
+    {
+        List<user> listUser = new ArrayList<user>();
+        userDAO user = new userDAO();
+        String sql = "SELECT customer_id, COUNT(customer_id) AS 'value_occurence' FROM Transaction_History"+" GROUP BY customer_id"+" ORDER BY 'value_occurence' DESC LIMIT 1;";
+        connect_func();
+        preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
+        statement = (Statement) connect.prepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery(sql);
+        while(resultSet.next())
+        {
+            String email = resultSet.getString(email);
+            listUser.add(user.getUser(email));
+        }
+        resultSet.close();
+        disconnect();
+        return listUser;
+    }
     
     
+    //Part 6 diamond hands
+    public List<user> diamond() throws SQLException
+    {
+        List<user> listUser = new ArrayList<user>();
+        userDAO user = new userDAO();
+        String sql = null;
+        connect_func();
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        while(resultSet.next()){
+            String email = resultSet.getString(email);
+            listUser.add(user.getUser(email));
+        }
+        resultSet.close();
+        disconnect();
+        return listUser;
+    }
+    
+    //Part 8 good buyer
+    public List<user> goodBuyer() throws SQLException
+    {
+        List<user> listUser = new ArrayList<user>();
+        userDAO user = new userDAO();
+        String sql = "SELECT customer_id, COUNT(customer_id) AS 'value_occurence' FROM Transaction_History"+" GROUP BY customer_id"+"ORDER by 'value_occurence'";
+        connect_func();
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        while(resultSet.next())
+        {
+            String email = resultSet.getString(email);
+            listUser.add(user.getUser(email));
+        }
+        resultSet.close();
+        disconnect();
+        return listUser;
+    }
     public boolean isValid(String email, String password) throws SQLException
     {
     	String sql = "SELECT * FROM User";

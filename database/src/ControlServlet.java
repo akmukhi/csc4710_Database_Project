@@ -111,6 +111,16 @@ public class ControlServlet extends HttpServlet {
         		 soldNFTs(request, response);
         	 case "/boughtNFTs":
         		 boughtNFTs(request, response);
+			case "/diamondHands":
+				diamond(request, response);
+			case "/goodBuyer":
+				goodBuyer(request, response);
+			case "/bigSeller":
+				bigSeller(request, response);
+			case "/bigBuyer":
+				bigBuyer(request, response);
+			case "/bigCreator":
+				bigCreator(request, response);
 	    	}
         	
 	    }
@@ -119,8 +129,57 @@ public class ControlServlet extends HttpServlet {
 	    	}
 	    }
         	
+	    //diamond implementation
+		private void diamond(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException
+		{
+			System.out.println("diamond hands started: 00000000000000000000000000000");
+			List<user> diamondHands = userDAO.diamond();
+			request.setAttribute("diamondHands", diamondHands);
+			request.getRequestDispatcher("userStatus.jsp").forward(request, response);
+			System.out.println("diamond hands ended: 11111111111111111111111111111111");
+		}
+
+		//good buyer implementation
+		private void goodBuyer(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException
+		{
+			System.out.println("Good Buyer started: 000000000000000000");
+			List<user> goodBuyer = userDAO.goodBuyer();
+			request.setAttribute("goodBuyer", goodBuyer);
+			request.getRequestDispatcher("userStatus.jsp").forward(request,response);
+			System.out.println("Good Buyer ended: 1111111111111111111111111");
+		}
+
+		//Big Seller
+		private void bigSeller(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException
+		{
+			System.out.println("Big Seller started: 000000000000000000");
+			List<user> bigSeller = userDAO.bigSeller();
+			request.setAttribute("bigSeller", bigSeller);
+			request.getRequestDispatcher("userStatus.jsp").forward(request,response);
+			System.out.println("Big Seller ended: 1111111111111111111111111");
+		}
 	    
-	    
+		//Big Creators
+		private void bigCreator(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException
+		{
+			System.out.println("Big Creators started: 000000000000000000");
+			List<user> bigCreator = userDAO.bigCreator();
+			request.setAttribute("bigCreator", bigCreator);
+			request.getRequestDispatcher("userStatus.jsp").forward(request,response);
+			System.out.println("Big Creator ended: 1111111111111111111111111");
+		}
+		
+		//Big buyer implementation
+		private void bigBuyer(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException
+		{
+			System.out.println("Big Buyer started: 000000000000000000");
+			List<user> bigBuyer = userDAO.bigBuyer();
+			request.setAttribute("bigBuyer", bigBuyer);
+			request.getRequestDispatcher("userStatus.jsp").forward(request,response);
+			System.out.println("Big Buyer ended: 1111111111111111111111111");
+		}
+
+
 	    //AAKASH LIST//////////////////////////////////////////////////////
 		    private void listMintedNFTs(HttpServletRequest request, HttpServletResponse response)
 	 	            throws SQLException, IOException, ServletException {
