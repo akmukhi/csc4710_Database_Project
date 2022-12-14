@@ -306,7 +306,7 @@ public class userDAO
     {
         List<user> listUser = new ArrayList<user>();
         userDAO user = new userDAO();
-        String sql = null;
+        String sql = "SELECT DISTINCT current_owner\r\n"+"FROM Transfer_History WHERE current_owner NOT IN (SELECT previous_owner FROM Transfer_History);";
         connect_func();
         statement = (Statement) connect.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
