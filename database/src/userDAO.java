@@ -252,7 +252,7 @@ public class userDAO
         ResultSet resultSet = statement.executeQuery(sql);
         while(resultSet.next())
         {
-            String email = resultSet.getString(email);
+            String email = resultSet.getString("email");
             listUser.add(user.getUser(email));
         }
         resultSet.close();
@@ -272,7 +272,7 @@ public class userDAO
         ResultSet resultSet = statement.executeQuery(sql);
         while(resultSet.next())
         {
-            String email = resultSet.getString(email);
+            String email = resultSet.getString("email");
             listUser.add(user.getUser(email));
         }
         resultSet.close();
@@ -292,7 +292,7 @@ public class userDAO
         ResultSet resultSet = statement.executeQuery(sql);
         while(resultSet.next())
         {
-            String email = resultSet.getString(email);
+            String email = resultSet.getString("email");
             listUser.add(user.getUser(email));
         }
         resultSet.close();
@@ -311,7 +311,7 @@ public class userDAO
         statement = (Statement) connect.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
         while(resultSet.next()){
-            String email = resultSet.getString(email);
+            String email = resultSet.getString("email");
             listUser.add(user.getUser(email));
         }
         resultSet.close();
@@ -330,7 +330,7 @@ public class userDAO
         ResultSet resultSet = statement.executeQuery(sql);
         while(resultSet.next())
         {
-            String email = resultSet.getString(email);
+            String email = resultSet.getString("email");
             listUser.add(user.getUser(email));
         }
         resultSet.close();
