@@ -24,6 +24,7 @@
 		  <a href="list.jsp"target ="_self" >List an NFT</a><br><br>
 		   <a href="usersearch.jsp"target ="_self" >Search Users</a><br><br>
 		   <a href="manageusernft.jsp"target ="_self" >Manage your NFTs</a><br><br>
+		   <a href="managerootview.jsp"target ="_self" >Root View</a><br><br>
 		   
 		        <form action="showinactivenfts" method="post">
  <input type="submit"  name="showinactivenfts" value="Show Your Inactive NFTs" />
