@@ -487,6 +487,57 @@ public class nftDAO
         disconnect();
         return nfts;  
     }
+    //PROJECT 4 REEHAM 
+    public List<nft> listMaxOwners() throws SQLException
+    {
+        List<nft> nfts = new ArrayList<nft>();
+        String sql = "SELECT * FROM  (SELECT *, COUNT(nftName) maxNFT FROM Transaction_History)";
+        connect_func();
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        while(resultSet.next())
+        {
+        	int NFTid = resultSet.getInt("NFTid");
+        	String nftName = resultSet.getString("nftName");
+            String nftDescription = resultSet.getString("nftDescription");
+            int listingPrice = resultSet.getInt("listingPrice");
+            String uploadnft = resultSet.getString("uploadnft");
+            String listingTime = resultSet.getString("listingTime");
+            String nftOwner = resultSet.getString("nftOwner"); 
+            int active = resultSet.getInt("active");
+
+            nfts.add(new nft(NFTid, nftName, nftDescription, listingPrice, uploadnft, listingTime, nftOwner, active));
+        }
+        resultSet.close();
+        disconnect();
+        return nfts;  
+    }
+    public List<nft> listCommonNFTs(String User1,String User2) throws SQLException
+    {
+        List<nft> nfts = new ArrayList<nft>();
+        String sql = "SELECT * FROM NFT_Ledger a LEFT JOIN Transaction_History b ON b.nftName = a.nftName WHERE previous_owner"
+        		+ " IN('"+User1+"','"+User2+"') or current_owner IN('"+User1+"','"+User2+"')";
+        connect_func();
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        while(resultSet.next())
+        {
+        	int NFTid = resultSet.getInt("NFTid");
+        	String nftName = resultSet.getString("nftName");
+            String nftDescription = resultSet.getString("nftDescription");
+            int listingPrice = resultSet.getInt("listingPrice");
+            String uploadnft = resultSet.getString("uploadnft");
+            String listingTime = resultSet.getString("listingTime");
+            String nftOwner = resultSet.getString("nftOwner"); 
+            int active = resultSet.getInt("active");
+
+            nfts.add(new nft(NFTid, nftName, nftDescription, listingPrice, uploadnft, listingTime, nftOwner, active));
+        }
+        resultSet.close();
+        disconnect();
+        return nfts;  
+    }
+
 	
 	
     
