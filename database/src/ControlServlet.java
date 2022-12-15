@@ -26,6 +26,7 @@ public class ControlServlet extends HttpServlet {
 	    private userDAO userDAO = new userDAO();
 	    private nftDAO nftDAO = new nftDAO();
 	    private listDAO listDAO = new listDAO();
+	    private statisticsDAO statisticsDAO = new statisticsDAO();
 	    private String currentUser;
 	    private HttpSession session=null;
 	    
@@ -39,6 +40,7 @@ public class ControlServlet extends HttpServlet {
 	    	userDAO = new userDAO();
 	    	nftDAO = new nftDAO();
 	    	listDAO = new listDAO();
+	    	statisticsDAO = new statisticsDAO();
 	    	currentUser= "";
 	    }
 	    
@@ -111,7 +113,7 @@ public class ControlServlet extends HttpServlet {
         		 soldNFTs(request, response);
         	 case "/boughtNFTs":
         		 boughtNFTs(request, response);
-			case "/diamondHands":
+ 			case "/diamondHands":
 				diamond(request, response);
 			case "/goodBuyer":
 				goodBuyer(request, response);
@@ -120,22 +122,40 @@ public class ControlServlet extends HttpServlet {
 			case "/bigBuyer":
 				bigBuyer(request, response);
 			case "/bigCreator":
-				bigCreator(request, response);
+				bigCreator(request, response);	
+			 case "/listMaxOwners":
+			    	listMaxOwners(request, response);
+			    	break;
+		    case "/listCommonNFTs":
+		    	listCommonNFTs(request, response);
+		    	break;
+		    case "listInactiveUsers":
+		    	listInactiveUsers(request, response);
+		    	break;
+		    case "/listPaperHands":
+		    	listPaperHands(request, response);
+		    	break;
+		    case "/listStatistics":
+		    	ListStatistics(request, response);
+		    	break;
 	    	}
-        	
+
+   	
 	    }
 	    catch(Exception ex) {
         	System.out.println(ex.getMessage());
 	    	}
 	    }
         	
+	    //PROJECT 4
+	    //aakash implementation
 	    //diamond implementation
 		private void diamond(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException
 		{
 			System.out.println("diamond hands started: 00000000000000000000000000000");
 			List<user> diamondHands = userDAO.diamond();
 			request.setAttribute("diamondHands", diamondHands);
-			request.getRequestDispatcher("sample.jsp").forward(request, response);
+			request.getRequestDispatcher("managerootviewuser.jsp").forward(request, response);
 			System.out.println("diamond hands ended: 11111111111111111111111111111111");
 		}
 
@@ -145,7 +165,7 @@ public class ControlServlet extends HttpServlet {
 			System.out.println("Good Buyer started: 000000000000000000");
 			List<user> goodBuyer = userDAO.goodBuyer();
 			request.setAttribute("goodBuyer", goodBuyer);
-			request.getRequestDispatcher("sample.jsp").forward(request,response);
+			request.getRequestDispatcher("managerootviewuser.jsp").forward(request,response);
 			System.out.println("Good Buyer ended: 1111111111111111111111111");
 		}
 
@@ -155,7 +175,7 @@ public class ControlServlet extends HttpServlet {
 			System.out.println("Big Seller started: 000000000000000000");
 			List<user> bigSeller = userDAO.bigSeller();
 			request.setAttribute("bigSeller", bigSeller);
-			request.getRequestDispatcher("sample.jsp").forward(request,response);
+			request.getRequestDispatcher("managerootviewuser.jsp").forward(request,response);
 			System.out.println("Big Seller ended: 1111111111111111111111111");
 		}
 	    
@@ -165,7 +185,7 @@ public class ControlServlet extends HttpServlet {
 			System.out.println("Big Creators started: 000000000000000000");
 			List<user> bigCreator = userDAO.bigCreator();
 			request.setAttribute("bigCreator", bigCreator);
-			request.getRequestDispatcher("sample.jsp").forward(request,response);
+			request.getRequestDispatcher("managerootviewuser.jsp").forward(request,response);
 			System.out.println("Big Creator ended: 1111111111111111111111111");
 		}
 		
@@ -175,11 +195,68 @@ public class ControlServlet extends HttpServlet {
 			System.out.println("Big Buyer started: 000000000000000000");
 			List<user> bigBuyer = userDAO.bigBuyer();
 			request.setAttribute("bigBuyer", bigBuyer);
-			request.getRequestDispatcher("sample.jsp").forward(request,response);
+			request.getRequestDispatcher("managerootviewuser.jsp").forward(request,response);
 			System.out.println("Big Buyer ended: 1111111111111111111111111");
 		}
+	    
+	    //Reehams Implementation
+		//LIST MAX OWNERS
+	    private void listMaxOwners(HttpServletRequest request, HttpServletResponse response)
+ 	            throws SQLException, IOException, ServletException {
+ 	        System.out.println("listNFT started: 00000000000000000000000000000000000");
+ 	       
+			List<nft> NFTs = nftDAO.listMaxOwners();
+			request.setAttribute("listNFT3", NFTs);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("managerootviewnft.jsp");
+			dispatcher.forward(request, response);
+			
+			
+ 	        System.out.println("listNFT finished: 111111111111111111111111111111111111");
+ 	    }
+	    
+    
+	    //lists common NFT
+	    private void listCommonNFTs(HttpServletRequest request, HttpServletResponse response)
+ 	            throws SQLException, IOException, ServletException {
+ 	        System.out.println("listNFT started: 00000000000000000000000000000000000");
+			String User1 = request.getParameter("User1");
+			String User2 = request.getParameter("User2");
+			List<nft> NFTs = nftDAO.listCommonNFTs(User1, User2);
+			request.setAttribute("listNFT3", NFTs);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("managerootviewnft.jsp");
+			dispatcher.forward(request, response);
+			
+			
+ 	        System.out.println("listNFT finished: 111111111111111111111111111111111111");
+ 	    }
+    //REEHAM USER
+		private void listInactiveUsers(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException
+		{
+			System.out.println("Inactive Users started: 000000000000000000");
+			List<user> users = userDAO.listInactiveUsers();
+			request.setAttribute("listUser", users);
+			request.getRequestDispatcher("managerootviewuser.jsp").forward(request,response);
+			System.out.println("InactiveUsers ended: 1111111111111111111111111");
+		}
+		private void listPaperHands(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException
+		{
+			System.out.println("Paper Hands started: 000000000000000000");
+			List<user> users = userDAO.listPaperHands();
+			request.setAttribute("listUser", users);
+			request.getRequestDispatcher("managerootviewuser.jsp").forward(request,response);
+			System.out.println("Paper Hands ended: 1111111111111111111111111");
+		}
 
-
+		private void ListStatistics(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException
+		{
+			System.out.println("List Stat started: 000000000000000000");
+			String user = request.getParameter("User");
+			List<statistics> stats = statisticsDAO.ListStatistics(user);
+			request.setAttribute("listSTAT", stats);
+			request.getRequestDispatcher("managerootviewuser.jsp").forward(request,response);
+			System.out.println("List Stat ended: 1111111111111111111111111");
+		}
+	    
 	    //AAKASH LIST//////////////////////////////////////////////////////
 		    private void listMintedNFTs(HttpServletRequest request, HttpServletResponse response)
 	 	            throws SQLException, IOException, ServletException {
@@ -490,7 +567,8 @@ public class ControlServlet extends HttpServlet {
 	    
 }
 	        
-	       	    
+	        
+	    
 	        
 	        
 	        
